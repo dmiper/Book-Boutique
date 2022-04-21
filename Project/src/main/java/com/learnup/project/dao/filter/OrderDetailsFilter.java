@@ -9,11 +9,11 @@ import lombok.Data;
 @AllArgsConstructor
 public class OrderDetailsFilter {
     
-    private Orders order;
+    private final Orders order;
     
-    private Books book;
+    private final Books book;
     
-    private Long quantity;
+    private final Long quantity;
     
-    private Long price;
+    private final Long price;
 }

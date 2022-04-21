@@ -1,9 +1,6 @@
 package com.learnup.project.dao.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -13,7 +10,8 @@ import java.io.Serializable;
  * Заказ - ид покупателя, ид заказа, сумма покупки
  */
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

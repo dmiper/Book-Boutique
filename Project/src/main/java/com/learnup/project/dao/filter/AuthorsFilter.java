@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class AuthorsFilter {
     
-    private String fullName;
+    private final String fullName;
 }

@@ -8,9 +8,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class BookWarehouseFilter {
     
-    private Books book;
+    private final Books book;
     
-    private Long theRestOfTheBooks;
+    private final Long theRestOfTheBooks;
     
-    private Long version;
+    private final Long version;
 }

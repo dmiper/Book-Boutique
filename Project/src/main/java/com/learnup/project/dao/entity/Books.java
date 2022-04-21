@@ -1,9 +1,8 @@
 package com.learnup.project.dao.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -14,7 +13,8 @@ import java.time.LocalDate;
  * Книга - информация о названии, ид автора, годе издания, количестве страниц, цене
  */
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -29,6 +29,7 @@ public class Books implements Serializable {
     private String title;
     
     @JoinColumn
+    @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Authors author;
     

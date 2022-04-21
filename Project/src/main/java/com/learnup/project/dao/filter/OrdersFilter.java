@@ -8,7 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class OrdersFilter {
     
-    private Long purchaseAmount;
+    private final Long purchaseAmount;
     
-    private Buyers buyer;
+    private final Buyers buyer;
 }

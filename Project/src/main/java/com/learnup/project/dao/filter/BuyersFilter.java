@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BuyersFilter {
     
-    private String fullName;
+    private final String fullName;
     
-    private LocalDate dateOfBirth;
+    private final LocalDate dateOfBirth;
 }

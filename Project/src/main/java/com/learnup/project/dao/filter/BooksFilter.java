@@ -10,13 +10,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BooksFilter {
     
-    private String title;
+    private final String title;
     
-    private Authors author;
+    private final Authors author;
     
-    private LocalDate yearOfPublication;
+    private final LocalDate yearOfPublication;
     
-    private Long numberOfPages;
+    private final Long numberOfPages;
     
-    private Long price;
+    private final Long price;
 }
