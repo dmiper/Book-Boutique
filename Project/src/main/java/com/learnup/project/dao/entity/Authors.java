@@ -1,8 +1,12 @@
 package com.learnup.project.dao.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Автор - ФИО, ид
@@ -12,14 +16,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "authors", schema = "schema")
-public class Authors {
-
+@Table(schema = "schema")
+public class Authors implements Serializable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @Column(nullable = false)
     private String fullName;
-
+    
 }

@@ -1,4 +1,4 @@
-package com.learnup.project.dao.service;
+package com.learnup.project.service;
 
 import com.learnup.project.dao.repository.BookWarehouseRepository;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,13 @@
 package com.learnup.project.dao.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 /**
  * Книжный склад - информация об остатках книг по идентификатору книги
@@ -13,20 +17,21 @@ import javax.validation.constraints.Min;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "book_warehouse", schema = "schema")
-public class BookWarehouse {
-
+@Table(schema = "schema")
+public class BookWarehouse implements Serializable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne(optional = false)
+    
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Books book;
-
+    
     @Min(value = 0)
     @Column(nullable = false)
     private Long theRestOfTheBooks;
-
+    
     @Version
     private Long version;
+    
 }
