@@ -13,7 +13,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Table(schema = "schema")
 public class BookWarehouse implements Serializable {
@@ -32,4 +31,10 @@ public class BookWarehouse implements Serializable {
     @Version
     private Long version;
     
+    public BookWarehouse(Long id, Books book, Long theRestOfTheBooks, Long version) {
+        this.id = id;
+        this.book = book;
+        this.theRestOfTheBooks = theRestOfTheBooks;
+        this.version = version;
+    }
 }

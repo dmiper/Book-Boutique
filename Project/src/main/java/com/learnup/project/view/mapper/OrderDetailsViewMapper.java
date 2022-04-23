@@ -1,4 +1,4 @@
-package com.learnup.project.mapper;
+package com.learnup.project.view.mapper;
 
 import com.learnup.project.dao.entity.OrderDetails;
 import com.learnup.project.view.OrderDetailsView;

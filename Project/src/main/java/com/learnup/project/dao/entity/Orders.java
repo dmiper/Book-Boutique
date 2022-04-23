@@ -13,7 +13,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Table(schema = "schema")
 public class Orders implements Serializable {
@@ -29,4 +28,9 @@ public class Orders implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Buyers buyer;
     
+    public Orders(Long id, Long purchaseAmount, Buyers buyer) {
+        this.id = id;
+        this.purchaseAmount = purchaseAmount;
+        this.buyer = buyer;
+    }
 }

@@ -1,6 +1,6 @@
 package com.learnup.project.controller;
 
-import com.learnup.project.mapper.OrderDetailsViewMapper;
+import com.learnup.project.view.mapper.OrderDetailsViewMapper;
 import com.learnup.project.service.OrderDetailsService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

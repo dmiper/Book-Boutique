@@ -1,9 +1,17 @@
 package com.learnup.project.dao.entity;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Автор - ФИО, ид
@@ -12,8 +20,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(schema = "schema")
 public class Authors implements Serializable {
     
@@ -24,4 +30,13 @@ public class Authors implements Serializable {
     @Column(nullable = false)
     private String fullName;
     
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @Fetch(FetchMode.JOIN)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
+    private List<Books> book;
+    
+    public Authors(Long id, String fullName) {
+        this.id = id;
+        this.fullName = fullName;
+    }
 }

@@ -8,7 +8,7 @@ import javax.persistence.criteria.Predicate;
 
 public class BooksSpecification {
     
-    public static Specification<Books> byFilter(BooksFilter booksFilter) {
+    public static Specification<Books> byBookFilter(BooksFilter booksFilter) {
         
         return (root, q, cb) -> {
             

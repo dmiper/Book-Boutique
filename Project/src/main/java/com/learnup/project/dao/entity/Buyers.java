@@ -1,10 +1,15 @@
 package com.learnup.project.dao.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Покупатель - ид, ФИО, дата рождения
@@ -13,7 +18,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Table(schema = "schema")
 public class Buyers implements Serializable {
@@ -27,4 +31,18 @@ public class Buyers implements Serializable {
     
     @Column(nullable = false)
     private LocalDate dateOfBirth;
+    
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @Fetch(FetchMode.JOIN)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "buyer")
+    private List<Orders> orders;
+    
+    public Buyers(Long id, String fullName, LocalDate dateOfBirth, List<Orders> orders) {
+        this.id = id;
+        this.fullName = fullName;
+        this.dateOfBirth = dateOfBirth;
+        this.orders = orders;
+    }
+    
+    
 }

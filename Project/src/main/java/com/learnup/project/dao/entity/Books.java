@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Книга - информация о названии, ид автора, годе издания, количестве страниц, цене
@@ -16,8 +18,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(schema = "schema")
 public class Books implements Serializable {
 
@@ -28,10 +28,11 @@ public class Books implements Serializable {
     @Column(nullable = false)
     private String title;
     
-    @JoinColumn
+    /*@JoinColumn
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Authors author;
+    private Authors author;*/
+    
     
     @Column(nullable = false)
     private LocalDate yearOfPublication;
@@ -44,4 +45,24 @@ public class Books implements Serializable {
     @Column(nullable = false)
     private Long price;
     
+    @JoinColumn
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Authors> author;
+    
+    public Books(Long id, String title, List<Authors> author, LocalDate yearOfPublication, Long numberOfPages, Long price) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.yearOfPublication = yearOfPublication;
+        this.numberOfPages = numberOfPages;
+        this.price = price;
+    }
+    
+    public Books(Long id, String title, LocalDate yearOfPublication, Long numberOfPages, Long price) {
+        this.id = id;
+        this.title = title;
+        this.yearOfPublication = yearOfPublication;
+        this.numberOfPages = numberOfPages;
+        this.price = price;
+    }
 }

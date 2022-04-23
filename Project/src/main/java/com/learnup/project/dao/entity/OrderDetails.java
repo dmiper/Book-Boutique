@@ -15,7 +15,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Table(schema = "schema")
 public class OrderDetails implements Serializable {
@@ -39,4 +38,12 @@ public class OrderDetails implements Serializable {
     @Min(value = 0)
     @Column(nullable = false)
     private Long price;
+    
+    public OrderDetails(Long id, Orders order, Books book, Long quantity, Long price) {
+        this.id = id;
+        this.order = order;
+        this.book = book;
+        this.quantity = quantity;
+        this.price = price;
+    }
 }
