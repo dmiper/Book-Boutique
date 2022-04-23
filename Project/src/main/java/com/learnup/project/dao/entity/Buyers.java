@@ -18,7 +18,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Builder
 @Table(schema = "schema")
 public class Buyers implements Serializable {
     
@@ -34,14 +33,13 @@ public class Buyers implements Serializable {
     
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Fetch(FetchMode.JOIN)
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "buyer")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "buyer")
     private List<Orders> orders;
     
-    public Buyers(Long id, String fullName, LocalDate dateOfBirth, List<Orders> orders) {
+    public Buyers(Long id, String fullName, LocalDate dateOfBirth) {
         this.id = id;
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
-        this.orders = orders;
     }
     
     

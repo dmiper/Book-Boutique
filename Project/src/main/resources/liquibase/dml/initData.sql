@@ -56,7 +56,7 @@ insert into schema.book_warehouse(book_id, the_rest_of_the_books)
 values (7, 200);
 
 --changeset pervushin:init_buyers
-/*insert into schema.buyers(full_name, date_of_birth)
+/*insert into schema.buyer(full_name, date_of_birth)
 values ('');*/
 
 --changeset pervushin:init_orders

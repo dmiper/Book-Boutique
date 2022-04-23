@@ -8,7 +8,7 @@
     <!--<include file="ddl/authors.sql" relativeToChangelogFile="true"/>
     <include file="ddl/books.sql" relativeToChangelogFile="true"/>
     <include file="ddl/book_warehouse.sql" relativeToChangelogFile="true"/>
-    <include file="ddl/buyers.sql" relativeToChangelogFile="true"/>
+    <include file="ddl/buyer.sql" relativeToChangelogFile="true"/>
     <include file="ddl/orders.sql" relativeToChangelogFile="true"/>
     <include file="ddl/order_details.sql" relativeToChangelogFile="true"/>-->
 <!--    <include file="dml/initData.sql" relativeToChangelogFile="true"/>-->

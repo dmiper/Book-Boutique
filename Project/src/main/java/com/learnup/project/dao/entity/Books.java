@@ -28,12 +28,6 @@ public class Books implements Serializable {
     @Column(nullable = false)
     private String title;
     
-    /*@JoinColumn
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Authors author;*/
-    
-    
     @Column(nullable = false)
     private LocalDate yearOfPublication;
     

@@ -3,7 +3,7 @@ package com.learnup.project.view.mapper;
 import com.learnup.project.dao.entity.Buyers;
 import com.learnup.project.dao.entity.Orders;
 import com.learnup.project.view.BuyersView;
-import com.learnup.project.view.OrdersView;
+import com.learnup.project.view.OrdersNoBuyersView;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -20,9 +20,8 @@ public class BuyersViewMapper {
             buyersView.setOrdersViews(
                     buyers.getOrders()
                             .stream()
-                            .map(orders -> new OrdersView(
+                            .map(orders -> new OrdersNoBuyersView(
                                     orders.getId(),
-                                    orders.getBuyer(),
                                     orders.getPurchaseAmount()))
                             .collect(Collectors.toList()));
         }
@@ -38,10 +37,9 @@ public class BuyersViewMapper {
             buyers.setOrders(
                     buyersView.getOrdersViews()
                             .stream()
-                            .map(orders -> new Orders(
-                                    orders.getId(),
-                                    orders.getPurchaseAmount(),
-                                    orders.getBuyer()))
+                            .map(ordersNoBuyersView -> new Orders(
+                                    ordersNoBuyersView.getId(),
+                                    ordersNoBuyersView.getPurchaseAmount()))
                             .collect(Collectors.toList()));
         }
         return buyers;

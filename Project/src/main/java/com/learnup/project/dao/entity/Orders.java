@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Заказ - ид покупателя, ид заказа, сумма покупки
@@ -13,7 +14,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@Builder
 @Table(schema = "schema")
 public class Orders implements Serializable {
     
@@ -24,13 +24,14 @@ public class Orders implements Serializable {
     @Min(value = 0)
     @Column(nullable = false)
     private Long purchaseAmount;
-    
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Buyers buyer;
-    
-    public Orders(Long id, Long purchaseAmount, Buyers buyer) {
+
+    @JoinColumn
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Buyers> buyer;
+
+
+    public Orders(Long id, Long purchaseAmount) {
         this.id = id;
         this.purchaseAmount = purchaseAmount;
-        this.buyer = buyer;
     }
 }

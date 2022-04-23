@@ -6,6 +6,7 @@ import com.learnup.project.dao.filter.BooksFilter;
 import com.learnup.project.service.BooksService;
 import com.learnup.project.view.BooksView;
 import com.learnup.project.view.mapper.BooksViewMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -13,18 +14,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("book-boutique/books")
 public class BooksController {
     
     private final BooksService booksService;
     private final BooksViewMapper booksViewMapper;
-    
-    public BooksController(BooksService booksService, BooksViewMapper booksViewMapper) {
-        this.booksService = booksService;
-        this.booksViewMapper = booksViewMapper;
-    }
-    
+
     @GetMapping
     public List<BooksView> getBooks(
             @RequestParam(value = "title", required = false) String title,
