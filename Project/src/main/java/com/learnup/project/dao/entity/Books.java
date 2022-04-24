@@ -1,15 +1,12 @@
 package com.learnup.project.dao.entity;
 
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Книга - информация о названии, ид автора, годе издания, количестве страниц, цене
@@ -18,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(schema = "schema")
 public class Books implements Serializable {
 
@@ -33,24 +31,12 @@ public class Books implements Serializable {
     
     @Min(value = 0)
     @Column(nullable = false)
-    private Long numberOfPages;
-    
-    @Min(value = 0)
-    @Column(nullable = false)
-    private Long price;
+    private Long numberOfPages, price;
     
     @JoinColumn
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Authors> author;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Collection<Authors> author;
     
-    public Books(Long id, String title, List<Authors> author, LocalDate yearOfPublication, Long numberOfPages, Long price) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.yearOfPublication = yearOfPublication;
-        this.numberOfPages = numberOfPages;
-        this.price = price;
-    }
     
     public Books(Long id, String title, LocalDate yearOfPublication, Long numberOfPages, Long price) {
         this.id = id;
@@ -58,5 +44,18 @@ public class Books implements Serializable {
         this.yearOfPublication = yearOfPublication;
         this.numberOfPages = numberOfPages;
         this.price = price;
+    }
+    
+    public <T> Books(Long id, String title, T author, LocalDate yearOfPublication, Long numberOfPages, Long price) {
+        this.id = id;
+        this.title = title;
+        this.author = (Collection<Authors>) author;
+        this.yearOfPublication = yearOfPublication;
+        this.numberOfPages = numberOfPages;
+        this.price = price;
+    }
+    
+    public Books(Long id) {
+        this.id = id;
     }
 }

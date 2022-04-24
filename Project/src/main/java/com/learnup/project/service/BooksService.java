@@ -3,6 +3,7 @@ package com.learnup.project.service;
 import com.learnup.project.dao.entity.Books;
 import com.learnup.project.dao.filter.BooksFilter;
 import com.learnup.project.dao.repository.BooksRepository;
+import com.sun.xml.bind.v2.TODO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
@@ -24,8 +25,9 @@ public class BooksService {
         return booksRepository.findAll(specification);
     }
     
+//    TODO: доделать сохранение, так как не сохраняет, с id
     public Books createBook(Books books) {
-        log.info("{}", books);
+        log.info("{}", books.toString());
         return booksRepository.save(books);
     }
     

@@ -1,12 +1,11 @@
 package com.learnup.project.view;
 
-import com.learnup.project.dao.entity.Authors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Collection;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +16,7 @@ public class BooksView {
     
     private String title;
     
-    private List<AuthorsNoBookView> author;
+    private Collection<AuthorsNoBookView> author;
     
     private LocalDate yearOfPublication;
     

@@ -21,7 +21,7 @@ public class OrdersViewMapper {
                             .stream()
                             .map(buyers -> new BuyersNoOrdersView(
                                     buyers.getId(),
-                                    buyers.getFullName(),
+                                    buyers.getUser(),
                                     buyers.getDateOfBirth()
                             ))
                             .collect(Collectors.toList()));
@@ -30,7 +30,7 @@ public class OrdersViewMapper {
         return ordersView;
     }
     
-    public Orders mapOrdersToView(OrdersView ordersView) {
+    public Orders mapOrdersFromView(OrdersView ordersView) {
         Orders orders = new Orders();
         orders.setId(ordersView.getId());
         orders.setPurchaseAmount(ordersView.getPurchaseAmount());
@@ -40,7 +40,7 @@ public class OrdersViewMapper {
                             .stream()
                             .map(buyersNoOrdersView -> new Buyers(
                                     buyersNoOrdersView.getId(),
-                                    buyersNoOrdersView.getFullName(),
+                                    buyersNoOrdersView.getUser(),
                                     buyersNoOrdersView.getDateOfBirth()
                             ))
                             .collect(Collectors.toList()));

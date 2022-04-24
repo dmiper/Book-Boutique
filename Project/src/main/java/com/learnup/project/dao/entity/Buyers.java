@@ -9,7 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Покупатель - ид, ФИО, дата рождения
@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(schema = "schema")
 public class Buyers implements Serializable {
     
@@ -25,8 +26,10 @@ public class Buyers implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false)
-    private String fullName;
+    @JoinColumn
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Users user;
     
     @Column(nullable = false)
     private LocalDate dateOfBirth;
@@ -34,11 +37,11 @@ public class Buyers implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Fetch(FetchMode.JOIN)
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "buyer")
-    private List<Orders> orders;
+    private Collection<Orders> orders;
     
-    public Buyers(Long id, String fullName, LocalDate dateOfBirth) {
+    public Buyers(Long id, Users user, LocalDate dateOfBirth) {
         this.id = id;
-        this.fullName = fullName;
+        this.user = user;
         this.dateOfBirth = dateOfBirth;
     }
     

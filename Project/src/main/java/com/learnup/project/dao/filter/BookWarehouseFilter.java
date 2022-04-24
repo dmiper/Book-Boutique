@@ -12,5 +12,4 @@ public class BookWarehouseFilter {
     
     private final Long theRestOfTheBooks;
     
-    private final Long version;
 }

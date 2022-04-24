@@ -15,11 +15,11 @@ public class BookWarehouseSpecification {
             Predicate predicate = cb.isNotNull(root.get("id"));
             
             if (bookWarehouseFilter.getBook() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("title"), "%" + bookWarehouseFilter.getBook() + "%"));
+                predicate = cb.and(predicate, cb.like(root.get("book"), "%" + bookWarehouseFilter.getBook() + "%"));
             }
             
             if (bookWarehouseFilter.getTheRestOfTheBooks() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("title"), "%" + bookWarehouseFilter.getTheRestOfTheBooks() + "%"));
+                predicate = cb.and(predicate, cb.like(root.get("theRestOfTheBooks"), "%" + bookWarehouseFilter.getTheRestOfTheBooks() + "%"));
             }
             
             return predicate;

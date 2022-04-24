@@ -1,11 +1,12 @@
 package com.learnup.project.view;
 
+import com.learnup.project.dao.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Collection;
 
 @Data
 @NoArgsConstructor
@@ -13,11 +14,11 @@ import java.util.List;
 public class BuyersView {
 
     private Long id;
-
-    private String fullName;
+    
+    private Users user;
 
     private LocalDate dateOfBirth;
     
-    private List<OrdersNoBuyersView> ordersViews;
+    private Collection<OrdersNoBuyersView> ordersViews;
 
 }

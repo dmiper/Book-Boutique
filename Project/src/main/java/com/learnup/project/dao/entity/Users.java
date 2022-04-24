@@ -1,37 +1,32 @@
 package com.learnup.project.dao.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
-@Data
-@RequiredArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(schema = "schema")
 public class Users {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_account;
+    private Long id;
     
     @OneToOne
     private UsersRole role;
     
     @Column(unique = true)
-    private String loginName;
-    
-    @Column(unique = true)
-    private String email;
-    
-    @Column(unique = true)
-    private String hashPassword;
+    private String loginName, email, hashPassword;
     
     @Column
-    private String fullName;
+    private String firstName, lastName;
+    
+    @Column
+    private LocalDate dateRegistration;
     
 }

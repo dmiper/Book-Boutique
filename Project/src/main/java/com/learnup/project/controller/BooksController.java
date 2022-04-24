@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class BooksController {
     @GetMapping
     public List<BooksView> getBooks(
             @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "author", required = false) List<Authors> author,
+            @RequestParam(value = "author", required = false) Collection<Authors> author,
             @RequestParam(value = "yearOfPublication", required = false) LocalDate yearOfPublication,
             @RequestParam(value = "numberOfPages", required = false) Long numberOfPages,
             @RequestParam(value = "price", required = false) Long price
@@ -37,7 +38,7 @@ public class BooksController {
     }
     
     @GetMapping("/{id}")
-    public BooksView booksView(@PathVariable("id") Long id) {
+    public BooksView getBook(@PathVariable("id") Long id) {
         return booksViewMapper.mapBooksToView(booksService.getBookById(id));
     }
     

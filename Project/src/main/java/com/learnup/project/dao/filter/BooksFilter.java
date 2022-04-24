@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Collection;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +13,7 @@ public class BooksFilter {
     
     private final String title;
     
-    private final List<Authors> author;
+    private final Collection<Authors> author;
     
     private final LocalDate yearOfPublication;
     

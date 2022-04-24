@@ -15,14 +15,14 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 @Table(schema = "schema")
 public class OrderDetails implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @OneToOne
     private Orders order;
     
@@ -30,20 +30,9 @@ public class OrderDetails implements Serializable {
     @Fetch(FetchMode.JOIN)
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Books book;
-
-    @Min(value = 0)
-    @Column(nullable = false)
-    private Long quantity;
-
-    @Min(value = 0)
-    @Column(nullable = false)
-    private Long price;
     
-    public OrderDetails(Long id, Orders order, Books book, Long quantity, Long price) {
-        this.id = id;
-        this.order = order;
-        this.book = book;
-        this.quantity = quantity;
-        this.price = price;
-    }
+    @Min(value = 0)
+    @Column(nullable = false)
+    private Long quantity, price;
+    
 }

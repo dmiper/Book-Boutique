@@ -25,8 +25,14 @@ public class AuthorsService {
         return authorsRepository.findAll(specification);
     }
     
+    //    TODO: доделать сохранение, так как не сохраняет, с id
     public Authors createAuthor(Authors authors) {
-        log.info("{}", authors);
+        log.info("{}", authors.toString());
         return authorsRepository.save(authors);
+    }
+    
+    public Authors getBookById(Long id) {
+        log.info("{}", id);
+        return authorsRepository.getById(id);
     }
 }

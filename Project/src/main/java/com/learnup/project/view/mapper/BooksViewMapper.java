@@ -15,6 +15,9 @@ public class BooksViewMapper {
         BooksView booksView = new BooksView();
         booksView.setId(books.getId());
         booksView.setTitle(books.getTitle());
+        booksView.setPrice(books.getPrice());
+        booksView.setNumberOfPages(books.getNumberOfPages());
+        booksView.setYearOfPublication(books.getYearOfPublication());
         if (books.getAuthor() != null) {
             booksView.setAuthor(
                     books.getAuthor()
@@ -25,9 +28,6 @@ public class BooksViewMapper {
                             .collect(Collectors.toList())
             );
         }
-        booksView.setYearOfPublication(books.getYearOfPublication());
-        booksView.setNumberOfPages(books.getNumberOfPages());
-        booksView.setPrice(books.getPrice());
         return booksView;
     }
     
@@ -35,6 +35,9 @@ public class BooksViewMapper {
         Books books = new Books();
         books.setId(booksView.getId());
         books.setTitle(booksView.getTitle());
+        books.setPrice(booksView.getPrice());
+        books.setNumberOfPages(booksView.getNumberOfPages());
+        books.setYearOfPublication(booksView.getYearOfPublication());
         if (booksView.getAuthor() != null) {
             books.setAuthor(
                     booksView.getAuthor()
@@ -45,9 +48,6 @@ public class BooksViewMapper {
                             .collect(Collectors.toList())
             );
         }
-        books.setYearOfPublication(booksView.getYearOfPublication());
-        books.setNumberOfPages(booksView.getNumberOfPages());
-        books.setPrice(booksView.getPrice());
         return books;
     }
     

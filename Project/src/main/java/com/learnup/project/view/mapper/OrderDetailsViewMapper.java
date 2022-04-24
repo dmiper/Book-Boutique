@@ -10,20 +10,20 @@ public class OrderDetailsViewMapper {
     public OrderDetailsView mapOrderDetailsToView(OrderDetails orderDetails) {
         OrderDetailsView orderDetailsView = new OrderDetailsView();
         orderDetailsView.setId(orderDetails.getId());
-        orderDetailsView.setOrder(orderDetails.getOrder());
         orderDetailsView.setBook(orderDetails.getBook());
-        orderDetailsView.setQuantity(orderDetails.getQuantity());
+        orderDetailsView.setOrder(orderDetails.getOrder());
         orderDetailsView.setPrice(orderDetails.getPrice());
+        orderDetailsView.setQuantity(orderDetails.getQuantity());
         return orderDetailsView;
     }
     
-    public OrderDetails mapOrderDetailsToView(OrderDetailsView orderDetailsView) {
+    public OrderDetails mapOrderDetailsFromView(OrderDetailsView orderDetailsView) {
         OrderDetails orderDetails = new OrderDetails();
         orderDetails.setId(orderDetailsView.getId());
-        orderDetails.setOrder(orderDetailsView.getOrder());
         orderDetails.setBook(orderDetailsView.getBook());
-        orderDetails.setQuantity(orderDetailsView.getQuantity());
+        orderDetails.setOrder(orderDetailsView.getOrder());
         orderDetails.setPrice(orderDetailsView.getPrice());
+        orderDetails.setQuantity(orderDetailsView.getQuantity());
         return orderDetails;
     }
     

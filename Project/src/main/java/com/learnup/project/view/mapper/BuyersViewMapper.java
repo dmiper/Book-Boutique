@@ -14,7 +14,7 @@ public class BuyersViewMapper {
     public BuyersView mapBuyersToView(Buyers buyers) {
         BuyersView buyersView = new BuyersView();
         buyersView.setId(buyers.getId());
-        buyersView.setFullName(buyers.getFullName());
+        buyersView.setUser(buyers.getUser());
         buyersView.setDateOfBirth(buyers.getDateOfBirth());
         if (buyers.getOrders() != null) {
             buyersView.setOrdersViews(
@@ -28,10 +28,10 @@ public class BuyersViewMapper {
         return buyersView;
     }
     
-    public Buyers mapBuyersToView(BuyersView buyersView) {
+    public Buyers mapBuyersFromView(BuyersView buyersView) {
         Buyers buyers = new Buyers();
         buyers.setId(buyersView.getId());
-        buyers.setFullName(buyersView.getFullName());
+        buyers.setUser(buyersView.getUser());
         buyers.setDateOfBirth(buyersView.getDateOfBirth());
         if (buyersView.getOrdersViews() != null) {
             buyers.setOrders(

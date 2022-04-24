@@ -14,12 +14,16 @@ public class BuyersSpecification {
             
             Predicate predicate = cb.isNotNull(root.get("id"));
             
-            if (buyersFilter.getFullName() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("title"), "%" + buyersFilter.getFullName() + "%"));
+            if (buyersFilter.getUser() != null) {
+                predicate = cb.and(predicate, cb.like(root.get("user"), "%" + buyersFilter.getUser() + "%"));
             }
             
             if (buyersFilter.getDateOfBirth() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("title"), "%" + buyersFilter.getDateOfBirth() + "%"));
+                predicate = cb.and(predicate, cb.like(root.get("dateOfBirth"), "%" + buyersFilter.getDateOfBirth() + "%"));
+            }
+    
+            if (buyersFilter.getOrders() != null) {
+                predicate = cb.and(predicate, cb.like(root.get("orders"), "%" + buyersFilter.getOrders() + "%"));
             }
             
             return predicate;

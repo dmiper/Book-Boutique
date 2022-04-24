@@ -1,6 +1,6 @@
 package com.learnup.project.dao.repository;
 
-import com.learnup.project.dao.entity.Orders;
+import com.learnup.project.dao.entity.Users;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrdersRepository extends JpaRepository<Orders, Long> {
+public interface UsersRepository extends JpaRepository<Users, Long> {
     
-    List<Orders> findAll(Specification<Orders> specification);
+    List<Users> findAll(Specification<Users> specification);
+    
 }

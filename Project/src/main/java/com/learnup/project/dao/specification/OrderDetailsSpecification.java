@@ -1,8 +1,6 @@
 package com.learnup.project.dao.specification;
 
-import com.learnup.project.dao.entity.Buyers;
 import com.learnup.project.dao.entity.OrderDetails;
-import com.learnup.project.dao.filter.BuyersFilter;
 import com.learnup.project.dao.filter.OrderDetailsFilter;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -17,19 +15,19 @@ public class OrderDetailsSpecification {
             Predicate predicate = cb.isNotNull(root.get("id"));
             
             if (orderDetailsFilter.getOrder() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("title"), "%" + orderDetailsFilter.getOrder() + "%"));
+                predicate = cb.and(predicate, cb.like(root.get("order"), "%" + orderDetailsFilter.getOrder() + "%"));
             }
             
             if (orderDetailsFilter.getBook() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("title"), "%" + orderDetailsFilter.getBook() + "%"));
+                predicate = cb.and(predicate, cb.like(root.get("book"), "%" + orderDetailsFilter.getBook() + "%"));
             }
     
             if (orderDetailsFilter.getQuantity() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("title"), "%" + orderDetailsFilter.getQuantity() + "%"));
+                predicate = cb.and(predicate, cb.like(root.get("quantity"), "%" + orderDetailsFilter.getQuantity() + "%"));
             }
     
             if (orderDetailsFilter.getPrice() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("title"), "%" + orderDetailsFilter.getPrice() + "%"));
+                predicate = cb.and(predicate, cb.like(root.get("price"), "%" + orderDetailsFilter.getPrice() + "%"));
             }
             
             return predicate;
