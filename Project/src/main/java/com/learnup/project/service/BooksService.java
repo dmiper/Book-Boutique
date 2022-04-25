@@ -3,12 +3,12 @@ package com.learnup.project.service;
 import com.learnup.project.dao.entity.Books;
 import com.learnup.project.dao.filter.BooksFilter;
 import com.learnup.project.dao.repository.BooksRepository;
-import com.sun.xml.bind.v2.TODO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 import static com.learnup.project.dao.specification.BooksSpecification.byBookFilter;
@@ -21,18 +21,34 @@ public class BooksService {
     
     public List<Books> getAllBooks(BooksFilter booksFilter) {
         Specification<Books> specification = Specification.where(byBookFilter(booksFilter));
-        log.info("{}", specification);
+        log.info("Request getAllUsers: {}", specification);
         return booksRepository.findAll(specification);
     }
     
-//    TODO: доделать сохранение, так как не сохраняет, с id
     public Books createBook(Books books) {
-        log.info("{}", books.toString());
+        log.info("CreateBook: {}", books.toString());
         return booksRepository.save(books);
     }
     
     public Books getBookById(Long id) {
-        log.info("{}", id);
+        log.info("Request getBookById: {}", id);
         return booksRepository.getById(id);
     }
+    
+    public Boolean deleteBook(Long id) {
+        log.info("DeleteBook id: {}", id);
+        booksRepository.delete(booksRepository.getById(id));
+        return true;
+    }
+    
+    public Books updateBook(Books books) {
+        try {
+            log.info("UpdateBook: {}", books.toString());
+            return booksRepository.save(books);
+        } catch (OptimisticLockException e) {
+            log.warn("Optimistic lock exception for Book id {}", books.getId());
+            throw e;
+        }
+    }
+    
 }

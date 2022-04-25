@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 import static com.learnup.project.dao.specification.AuthorsSpecification.byAuthorFilter;
@@ -21,18 +22,34 @@ public class AuthorsService {
     
     public List<Authors> getAllAuthors(AuthorsFilter authorsFilter) {
         Specification<Authors> specification = Specification.where(byAuthorFilter(authorsFilter));
-        log.info("{}", specification);
+        log.info("Request getAllAuthors: {}", specification);
         return authorsRepository.findAll(specification);
     }
     
-    //    TODO: доделать сохранение, так как не сохраняет, с id
     public Authors createAuthor(Authors authors) {
-        log.info("{}", authors.toString());
+        log.warn("CreateAuthor: {}", authors.toString());
         return authorsRepository.save(authors);
     }
     
-    public Authors getBookById(Long id) {
-        log.info("{}", id);
+    public Authors getAuthorById(Long id) {
+        log.warn("Request getAuthorById: {}", id);
         return authorsRepository.getById(id);
     }
+    
+    public Boolean deleteAuthor(Long id) {
+        log.warn("DeleteAuthor id: {}", id);
+        authorsRepository.delete(authorsRepository.getById(id));
+        return true;
+    }
+    
+    public Authors updateAuthor(Authors authors) {
+        try {
+            log.info("UpdateAuthor: {}", authors.toString());
+            return authorsRepository.save(authors);
+        } catch (OptimisticLockException e) {
+            log.warn("Optimistic lock exception for Author id {}", authors.getId());
+            throw e;
+        }
+    }
+    
 }

@@ -15,6 +15,6 @@ public class AuthorsView {
 
     private String fullName;
     
-    private Collection<BooksNoAuthorView> booksView;
+    private Collection<BooksNoAuthorView> books;
     
 }

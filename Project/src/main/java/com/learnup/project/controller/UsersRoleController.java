@@ -9,7 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -46,6 +48,28 @@ public class UsersRoleController {
         UsersRole usersRole = usersRoleViewMapper.mapUsersRoleFromView(usersRoleView);
         UsersRole createUsersRole = usersRoleService.createUserRole(usersRole);
         return usersRoleViewMapper.mapUsersRoleToView(createUsersRole);
+    }
+    
+    @PutMapping("/{id}")
+    public UsersRoleView updateUserRole(@PathVariable("id") Long id,
+                                      @RequestBody UsersRoleView usersRoleView) {
+        if (usersRoleView.getId() == null) {
+            throw new EntityNotFoundException("Try to found null entity");
+        }
+        if (!Objects.equals(id, usersRoleView.getId())) {
+            throw new RuntimeException("Entity has bad id");
+        }
+        UsersRole usersRole = usersRoleService.getUserRoleById(id);
+        if (!usersRole.getRole().equals(usersRoleView.getRole())) {
+            usersRole.setRole(usersRoleView.getRole());
+        }
+        UsersRole updateUsersRole = usersRoleService.updateUserRole(usersRole);
+        return usersRoleViewMapper.mapUsersRoleToView(updateUsersRole);
+    }
+    
+    @DeleteMapping("/{id}")
+    public Boolean deleteUserRole(@PathVariable("id") Long id) {
+        return usersRoleService.deleteUserRole(id);
     }
     
 }

@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.OptimisticLockException;
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.learnup.project.dao.specification.BookWarehouseSpecification.byBookWarehouseFilter;
@@ -21,17 +23,36 @@ public class BookWarehouseService {
     
     public List<BookWarehouse> getAllBookWarehouse(BookWarehouseFilter bookWarehouseFilter) {
         Specification<BookWarehouse> specification = Specification.where(byBookWarehouseFilter(bookWarehouseFilter));
-        log.info("{}", specification);
+        log.info("Request getAllBookWarehouse: {}", specification);
         return bookWarehouseRepository.findAll(specification);
     }
     
+    @Transactional
     public BookWarehouse createBookWarehouse(BookWarehouse bookWarehouse) {
-        log.info("{}", bookWarehouse.toString());
+        log.info("CreateBookWarehouse: {}", bookWarehouse.toString());
         return bookWarehouseRepository.save(bookWarehouse);
     }
     
     public BookWarehouse getBookWarehouseById(Long id) {
-        log.info("{}", id);
+        log.info("Request getBookWarehouseById: {}", id);
         return bookWarehouseRepository.getById(id);
     }
+    
+    public Boolean deleteBookWarehouse(Long id) {
+        log.info("DeleteBookWarehouse id: {}", id);
+        bookWarehouseRepository.delete(bookWarehouseRepository.getById(id));
+        return true;
+    }
+    
+    @Transactional
+    public BookWarehouse updateBookWarehouse(BookWarehouse bookWarehouse) {
+        try {
+            log.info("UpdateBookWarehouse: {}", bookWarehouse.toString());
+            return bookWarehouseRepository.save(bookWarehouse);
+        } catch (OptimisticLockException e) {
+            log.warn("Optimistic lock exception for BookWarehouse id {}", bookWarehouse.getId());
+            throw e;
+        }
+    }
+    
 }

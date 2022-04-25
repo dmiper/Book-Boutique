@@ -10,9 +10,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -53,4 +55,39 @@ public class BooksController {
         Books createBook = booksService.createBook(books);
         return booksViewMapper.mapBooksToView(createBook);
     }
+    
+    @PutMapping("/{id}")
+    public BooksView updateBook(@PathVariable("id") Long id,
+                                @RequestBody BooksView authorsView) {
+        if (authorsView.getId() == null) {
+            throw new EntityNotFoundException("Try to found null entity");
+        }
+        if (!Objects.equals(id, authorsView.getId())) {
+            throw new RuntimeException("Entity has bad id");
+        }
+        Books authors = booksService.getBookById(id);
+        /*if (!authors.getAuthor().equals(authorsView.getAuthor())) {
+            authors.setAuthor(authorsView.getAuthor());
+        }*/
+        if (!authors.getTitle().equals(authorsView.getTitle())) {
+            authors.setTitle(authorsView.getTitle());
+        }
+        if (!authors.getPrice().equals(authorsView.getPrice())) {
+            authors.setPrice(authorsView.getPrice());
+        }
+        if (!authors.getNumberOfPages().equals(authorsView.getNumberOfPages())) {
+            authors.setNumberOfPages(authorsView.getNumberOfPages());
+        }
+        if (!authors.getYearOfPublication().equals(authorsView.getYearOfPublication())) {
+            authors.setYearOfPublication(authorsView.getYearOfPublication());
+        }
+        Books updateBook = booksService.updateBook(authors);
+        return booksViewMapper.mapBooksToView(updateBook);
+    }
+    
+    @DeleteMapping("/{id}")
+    public Boolean deleteBook(@PathVariable("id") Long id) {
+        return booksService.deleteBook(id);
+    }
+    
 }

@@ -17,7 +17,7 @@ public class BuyersViewMapper {
         buyersView.setUser(buyers.getUser());
         buyersView.setDateOfBirth(buyers.getDateOfBirth());
         if (buyers.getOrders() != null) {
-            buyersView.setOrdersViews(
+            buyersView.setOrders(
                     buyers.getOrders()
                             .stream()
                             .map(orders -> new OrdersNoBuyersView(
@@ -33,9 +33,9 @@ public class BuyersViewMapper {
         buyers.setId(buyersView.getId());
         buyers.setUser(buyersView.getUser());
         buyers.setDateOfBirth(buyersView.getDateOfBirth());
-        if (buyersView.getOrdersViews() != null) {
+        if (buyersView.getOrders() != null) {
             buyers.setOrders(
-                    buyersView.getOrdersViews()
+                    buyersView.getOrders()
                             .stream()
                             .map(ordersNoBuyersView -> new Orders(
                                     ordersNoBuyersView.getId(),

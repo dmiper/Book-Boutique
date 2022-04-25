@@ -16,7 +16,7 @@ public class AuthorsViewMapper {
         authorsView.setId(authors.getId());
         authorsView.setFullName(authors.getFullName());
         if (authors.getBook() != null) {
-            authorsView.setBooksView(
+            authorsView.setBooks(
                     authors.getBook()
                             .stream()
                             .map(books -> new BooksNoAuthorView(
@@ -34,9 +34,9 @@ public class AuthorsViewMapper {
         Authors authors = new Authors();
         authors.setId(authorsView.getId());
         authors.setFullName(authorsView.getFullName());
-        if (authorsView.getBooksView() != null) {
+        if (authorsView.getBooks() != null) {
             authors.setBook(
-                    authorsView.getBooksView()
+                    authorsView.getBooks()
                             .stream()
                             .map(booksNoAuthorView -> new Books(
                                     booksNoAuthorView.getId(),

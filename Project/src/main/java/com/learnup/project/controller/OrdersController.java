@@ -10,8 +10,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -49,4 +51,30 @@ public class OrdersController {
         Orders createOrders = ordersService.createOrder(orders);
         return ordersViewMapper.mapOrdersToView(createOrders);
     }
+    
+    @PutMapping("/{id}")
+    public OrdersView updateOrder(@PathVariable("id") Long id,
+                                   @RequestBody OrdersView authorsView) {
+        if (authorsView.getId() == null) {
+            throw new EntityNotFoundException("Try to found null entity");
+        }
+        if (!Objects.equals(id, authorsView.getId())) {
+            throw new RuntimeException("Entity has bad id");
+        }
+        Orders authors = ordersService.getOrderById(id);
+        if (!authors.getPurchaseAmount().equals(authorsView.getPurchaseAmount())) {
+            authors.setPurchaseAmount(authorsView.getPurchaseAmount());
+        }
+        /*if (!authors.getBuyer().equals(authorsView.getBuyer())) {
+            authors.setBuyer(authorsView.getBuyer());
+        }*/
+        Orders updateOrder = ordersService.updateOrder(authors);
+        return ordersViewMapper.mapOrdersToView(updateOrder);
+    }
+    
+    @DeleteMapping("/{id}")
+    public Boolean deleteOrder(@PathVariable("id") Long id) {
+        return ordersService.deleteOrder(id);
+    }
+    
 }

@@ -10,7 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -48,4 +50,33 @@ public class BookWarehouseController {
         BookWarehouse createBookWarehouse = bookWarehouseService.createBookWarehouse(bookWarehouse);
         return bookWarehouseViewMapper.mapBookWarehouseToView(createBookWarehouse);
     }
+    
+    @PutMapping("/{id}")
+    public BookWarehouseView updateBookWarehouse(@PathVariable("id") Long id,
+                                                 @RequestBody BookWarehouseView bookWarehouseView) {
+        if (bookWarehouseView.getId() == null) {
+            throw new EntityNotFoundException("Try to found null entity");
+        }
+        if (!Objects.equals(id, bookWarehouseView.getId())) {
+            throw new RuntimeException("Entity has bad id");
+        }
+        BookWarehouse bookWarehouse = bookWarehouseService.getBookWarehouseById(id);
+        if (!bookWarehouse.getTheRestOfTheBooks().equals(bookWarehouseView.getTheRestOfTheBooks())) {
+            bookWarehouse.setTheRestOfTheBooks(bookWarehouseView.getTheRestOfTheBooks());
+        }
+        if (!bookWarehouse.getBook().equals(bookWarehouseView.getBook())) {
+            bookWarehouse.setBook(bookWarehouseView.getBook());
+        }
+        if (!bookWarehouse.getVersion().equals(bookWarehouseView.getVersion())) {
+            bookWarehouse.setVersion(bookWarehouseView.getVersion());
+        }
+        BookWarehouse updateBookWarehouse = bookWarehouseService.updateBookWarehouse(bookWarehouse);
+        return bookWarehouseViewMapper.mapBookWarehouseToView(updateBookWarehouse);
+    }
+    
+    @DeleteMapping("/{id}")
+    public Boolean deleteBookWarehouse(@PathVariable("id") Long id) {
+        return bookWarehouseService.deleteBookWarehouse(id);
+    }
+    
 }

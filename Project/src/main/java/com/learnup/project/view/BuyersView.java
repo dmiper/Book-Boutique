@@ -19,6 +19,6 @@ public class BuyersView {
 
     private LocalDate dateOfBirth;
     
-    private Collection<OrdersNoBuyersView> ordersViews;
+    private Collection<OrdersNoBuyersView> orders;
 
 }

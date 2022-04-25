@@ -10,8 +10,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -35,7 +37,7 @@ public class AuthorsController {
     
     @GetMapping("/{id}")
     public AuthorsView booksView(@PathVariable("id") Long id) {
-        return authorsViewMapper.mapAuthorsToView(authorsService.getBookById(id));
+        return authorsViewMapper.mapAuthorsToView(authorsService.getAuthorById(id));
     }
     
     @PostMapping
@@ -49,4 +51,30 @@ public class AuthorsController {
         Authors createAuthor = authorsService.createAuthor(authors);
         return authorsViewMapper.mapAuthorsToView(createAuthor);
     }
+    
+    @PutMapping("/{id}")
+    public AuthorsView updateAuthor(@PathVariable("id") Long id,
+            @RequestBody AuthorsView authorsView) {
+        if (authorsView.getId() == null) {
+            throw new EntityNotFoundException("Try to found null entity");
+        }
+        if (!Objects.equals(id, authorsView.getId())) {
+            throw new RuntimeException("Entity has bad id");
+        }
+        Authors authors = authorsService.getAuthorById(id);
+        /*if (!authors.getBook().equals(authorsView.getBooks())) {
+            authors.setBook(authorsView.getBooks());
+        }*/
+        if (!authors.getFullName().equals(authorsView.getFullName())) {
+            authors.setFullName(authorsView.getFullName());
+        }
+        Authors updateAuthor = authorsService.updateAuthor(authors);
+        return authorsViewMapper.mapAuthorsToView(updateAuthor);
+    }
+    
+    @DeleteMapping("/{id}")
+    public Boolean deleteAuthor(@PathVariable("id") Long id) {
+        return authorsService.deleteAuthor(id);
+    }
+    
 }

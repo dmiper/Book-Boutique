@@ -15,19 +15,15 @@ import java.util.stream.Collectors;
 public class ExceptionProcessor {
     
     @ExceptionHandler(EntityExistsException.class)
-    public ResponseEntity<Object> handleEntityExistException(
-            EntityExistsException ex
-    ) {
+    public ResponseEntity<Object> handleEntityExistException(EntityExistsException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
     
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException(
-            Exception ex
-    ) {
+    public ResponseEntity<Object> handleException(Exception ex) {
         List<String> stackTrace = Arrays.stream(ex.getStackTrace())
-                .map(Objects::toString).collect(Collectors.toList());
-        
+                .map(Objects::toString)
+                .collect(Collectors.toList());
         return new ResponseEntity<>(stackTrace, HttpStatus.BAD_REQUEST);
     }
 }
