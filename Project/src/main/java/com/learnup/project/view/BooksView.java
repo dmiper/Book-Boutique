@@ -5,23 +5,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Collection;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class BooksView {
     
-    private Long id;
+    private Long id, numberOfPages, price;
     
     private String title;
     
-    private Collection<AuthorsNoBookView> author;
+    private AuthorsFromBookView author;
     
     private LocalDate yearOfPublication;
     
-    private Long numberOfPages;
-    
-    private Long price;
+    private BookWarehouseFromBookView bookWarehouse;
     
 }

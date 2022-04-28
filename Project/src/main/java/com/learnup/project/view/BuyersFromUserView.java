@@ -4,17 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthorsView {
-
-    private Long id;
-
-    private String fullName;
+public class BuyersFromUserView {
     
-    private Set<BooksFromAuthorView> books;
+    private Long id;
+    
+    private LocalDate dateOfBirth, dateRegistration;
+    
+    private String firstName, lastName;
     
 }

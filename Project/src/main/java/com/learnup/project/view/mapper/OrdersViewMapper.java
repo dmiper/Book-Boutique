@@ -1,12 +1,10 @@
 package com.learnup.project.view.mapper;
 
-import com.learnup.project.dao.entity.Buyers;
 import com.learnup.project.dao.entity.Orders;
-import com.learnup.project.view.BuyersNoOrdersView;
-import com.learnup.project.view.OrdersView;
+import com.learnup.project.service.BuyersService;
+import com.learnup.project.service.OrderDetailsService;
+import com.learnup.project.view.*;
 import org.springframework.stereotype.Component;
-
-import java.util.stream.Collectors;
 
 @Component
 public class OrdersViewMapper {
@@ -15,37 +13,41 @@ public class OrdersViewMapper {
         OrdersView ordersView = new OrdersView();
         ordersView.setId(orders.getId());
         ordersView.setPurchaseAmount(orders.getPurchaseAmount());
-        if (orders.getBuyer() != null) {
-            ordersView.setBuyer(
-                    orders.getBuyer()
-                            .stream()
-                            .map(buyers -> new BuyersNoOrdersView(
-                                    buyers.getId(),
-                                    buyers.getUser(),
-                                    buyers.getDateOfBirth()
-                            ))
-                            .collect(Collectors.toList()));
-
-        }
+        ordersView.setBuyer(
+                new BuyersFromOrdersView(
+                        orders.getBuyer().getId(),
+                        orders.getBuyer().getDateOfBirth(),
+                        orders.getBuyer().getDateRegistration(),
+                        orders.getBuyer().getFirstName(),
+                        orders.getBuyer().getLastName()));
+        ordersView.setOrderDetails(
+                new OrderDetailsFromOrderView(
+                        orders.getOrderDetails().getId(),
+                        orders.getOrderDetails().getQuantity(),
+                        orders.getOrderDetails().getPrice(),
+                        new BooksView(
+                                orders.getOrderDetails().getBook().getId(),
+                                orders.getOrderDetails().getBook().getNumberOfPages(),
+                                orders.getOrderDetails().getBook().getPrice(),
+                                orders.getOrderDetails().getBook().getTitle(),
+                                new AuthorsFromBookView(
+                                        orders.getOrderDetails().getBook().getAuthor().getId(),
+                                        orders.getOrderDetails().getBook().getAuthor().getFullName()),
+                                orders.getOrderDetails().getBook().getYearOfPublication(),
+                                new BookWarehouseFromBookView(
+                                        orders.getOrderDetails().getBook().getBookWarehouse().getId(),
+                                        orders.getOrderDetails().getBook().getBookWarehouse().getTheRestOfTheBooks()))
+            
+                ));
         return ordersView;
     }
     
-    public Orders mapOrdersFromView(OrdersView ordersView) {
+    public Orders mapOrdersFromView(OrdersView ordersView, BuyersService buyersService, OrderDetailsService orderDetailsService) {
         Orders orders = new Orders();
         orders.setId(ordersView.getId());
         orders.setPurchaseAmount(ordersView.getPurchaseAmount());
-        if (ordersView.getBuyer() != null) {
-            orders.setBuyer(
-                    ordersView.getBuyer()
-                            .stream()
-                            .map(buyersNoOrdersView -> new Buyers(
-                                    buyersNoOrdersView.getId(),
-                                    buyersNoOrdersView.getUser(),
-                                    buyersNoOrdersView.getDateOfBirth()
-                            ))
-                            .collect(Collectors.toList()));
-
-        }
+        orders.setBuyer(buyersService.getBuyersById(ordersView.getBuyer().getId()));
+        orders.setOrderDetails(orderDetailsService.getOrderDetailsById(ordersView.getOrderDetails().getId()));
         return orders;
     }
     

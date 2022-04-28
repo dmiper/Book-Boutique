@@ -1,9 +1,8 @@
 package com.learnup.project.view.mapper;
 
 import com.learnup.project.dao.entity.Buyers;
-import com.learnup.project.dao.entity.Orders;
-import com.learnup.project.view.BuyersView;
-import com.learnup.project.view.OrdersNoBuyersView;
+import com.learnup.project.service.UsersService;
+import com.learnup.project.view.*;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -14,34 +13,52 @@ public class BuyersViewMapper {
     public BuyersView mapBuyersToView(Buyers buyers) {
         BuyersView buyersView = new BuyersView();
         buyersView.setId(buyers.getId());
-        buyersView.setUser(buyers.getUser());
+        buyersView.setDateRegistration(buyers.getDateRegistration());
+        buyersView.setUser(
+                new UsersFromBuyerView(
+                        buyers.getUser().getId(),
+                        new RoleFromUserView(
+                                buyers.getUser().getRole().getId(),
+                                buyers.getUser().getRole().getRole()
+                        ),
+                        buyers.getUser().getLoginName()
+                ));
         buyersView.setDateOfBirth(buyers.getDateOfBirth());
-        if (buyers.getOrders() != null) {
-            buyersView.setOrders(
-                    buyers.getOrders()
-                            .stream()
-                            .map(orders -> new OrdersNoBuyersView(
-                                    orders.getId(),
-                                    orders.getPurchaseAmount()))
-                            .collect(Collectors.toList()));
-        }
+        buyersView.setFirstName(buyers.getFirstName());
+        buyersView.setLastName(buyers.getLastName());
+        buyersView.setOrders(
+                buyers.getOrders()
+                        .stream()
+                        .map(orders -> new OrdersFromBuyersView(
+                                orders.getId(),
+                                orders.getPurchaseAmount(),
+                                new OrderDetailsFromOrderView(
+                                        orders.getOrderDetails().getId(),
+                                        orders.getOrderDetails().getQuantity(),
+                                        orders.getOrderDetails().getPrice(),
+                                        new BooksView(
+                                                orders.getOrderDetails().getBook().getId(),
+                                                orders.getOrderDetails().getBook().getPrice(),
+                                                orders.getOrderDetails().getBook().getNumberOfPages(),
+                                                orders.getOrderDetails().getBook().getTitle(),
+                                                new AuthorsFromBookView(
+                                                        orders.getOrderDetails().getBook().getAuthor().getId(),
+                                                        orders.getOrderDetails().getBook().getAuthor().getFullName()),
+                                                orders.getOrderDetails().getBook().getYearOfPublication(),
+                                                new BookWarehouseFromBookView(
+                                                        orders.getOrderDetails().getBook().getBookWarehouse().getId(),
+                                                        orders.getOrderDetails().getBook().getBookWarehouse().getTheRestOfTheBooks()
+                                                )))))
+                        .collect(Collectors.toSet()));
+    
         return buyersView;
     }
     
-    public Buyers mapBuyersFromView(BuyersView buyersView) {
+    public Buyers mapBuyersFromView(BuyersView buyersView, UsersService usersService) {
         Buyers buyers = new Buyers();
         buyers.setId(buyersView.getId());
-        buyers.setUser(buyersView.getUser());
+        buyers.setUser(usersService.getUserById(buyersView.getId()));
         buyers.setDateOfBirth(buyersView.getDateOfBirth());
-        if (buyersView.getOrders() != null) {
-            buyers.setOrders(
-                    buyersView.getOrders()
-                            .stream()
-                            .map(ordersNoBuyersView -> new Orders(
-                                    ordersNoBuyersView.getId(),
-                                    ordersNoBuyersView.getPurchaseAmount()))
-                            .collect(Collectors.toList()));
-        }
         return buyers;
     }
     

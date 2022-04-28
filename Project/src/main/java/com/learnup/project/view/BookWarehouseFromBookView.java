@@ -4,17 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthorsView {
-
-    private Long id;
-
-    private String fullName;
+public class BookWarehouseFromBookView {
     
-    private Set<BooksFromAuthorView> books;
+    private Long id, theRestOfTheBooks;
     
 }

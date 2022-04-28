@@ -1,12 +1,13 @@
 package com.learnup.project.dao.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Collection;
 
 /**
  * Книга - информация о названии, ид автора, годе издания, количестве страниц, цене
@@ -14,16 +15,15 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(schema = "schema")
 public class Books implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
+    
+    @Column(nullable = false, unique = true)
     private String title;
     
     @Column(nullable = false)
@@ -34,28 +34,10 @@ public class Books implements Serializable {
     private Long numberOfPages, price;
     
     @JoinColumn
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Collection<Authors> author;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Authors author;
     
+    @OneToOne
+    private BookWarehouse bookWarehouse;
     
-    public Books(Long id, String title, LocalDate yearOfPublication, Long numberOfPages, Long price) {
-        this.id = id;
-        this.title = title;
-        this.yearOfPublication = yearOfPublication;
-        this.numberOfPages = numberOfPages;
-        this.price = price;
-    }
-    
-    public <T> Books(Long id, String title, T author, LocalDate yearOfPublication, Long numberOfPages, Long price) {
-        this.id = id;
-        this.title = title;
-        this.author = (Collection<Authors>) author;
-        this.yearOfPublication = yearOfPublication;
-        this.numberOfPages = numberOfPages;
-        this.price = price;
-    }
-    
-    public Books(Long id) {
-        this.id = id;
-    }
 }

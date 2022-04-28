@@ -1,26 +1,17 @@
 package com.learnup.project.dao.filter;
 
-import com.learnup.project.dao.entity.UsersRole;
+import com.learnup.project.dao.entity.Buyers;
+import com.learnup.project.dao.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 public class UsersFilter {
     
-    private UsersRole role;
+    private final Role role;
     
-    private String loginName;
+    private final String loginName, email, hashPassword;
     
-    private String email;
-    
-    private String hashPassword;
-    
-    private String firstName;
-    
-    private String lastName;
-    
-    private LocalDate dateRegistration;
+    private final Buyers buyer;
 }

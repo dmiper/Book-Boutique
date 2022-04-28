@@ -1,6 +1,7 @@
 package com.learnup.project.controller;
 
 import com.learnup.project.dao.entity.Authors;
+import com.learnup.project.dao.entity.BookWarehouse;
 import com.learnup.project.dao.entity.Books;
 import com.learnup.project.dao.filter.BooksFilter;
 import com.learnup.project.service.BooksService;
@@ -12,9 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -24,23 +24,24 @@ public class BooksController {
     
     private final BooksService booksService;
     private final BooksViewMapper booksViewMapper;
-
+    
     @GetMapping
-    public List<BooksView> getBooks(
+    public Set<BooksView> getBooks(
             @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "author", required = false) Collection<Authors> author,
+            @RequestParam(value = "author", required = false) Authors author,
             @RequestParam(value = "yearOfPublication", required = false) LocalDate yearOfPublication,
             @RequestParam(value = "numberOfPages", required = false) Long numberOfPages,
-            @RequestParam(value = "price", required = false) Long price
+            @RequestParam(value = "price", required = false) Long price,
+            @RequestParam(value = "bookWarehouse", required = false) BookWarehouse bookWarehouse
     ) {
-        return booksService.getAllBooks(new BooksFilter(title, author, yearOfPublication, numberOfPages, price))
+        return booksService.getAllBooks(new BooksFilter(title, author, yearOfPublication, numberOfPages, price, bookWarehouse))
                 .stream()
                 .map(booksViewMapper::mapBooksToView)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
     
     @GetMapping("/{id}")
-    public BooksView getBook(@PathVariable("id") Long id) {
+    public BooksView getBookById(@PathVariable("id") Long id) {
         return booksViewMapper.mapBooksToView(booksService.getBookById(id));
     }
     
@@ -66,9 +67,6 @@ public class BooksController {
             throw new RuntimeException("Entity has bad id");
         }
         Books authors = booksService.getBookById(id);
-        /*if (!authors.getAuthor().equals(authorsView.getAuthor())) {
-            authors.setAuthor(authorsView.getAuthor());
-        }*/
         if (!authors.getTitle().equals(authorsView.getTitle())) {
             authors.setTitle(authorsView.getTitle());
         }

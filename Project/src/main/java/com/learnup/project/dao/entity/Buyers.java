@@ -1,6 +1,8 @@
 package com.learnup.project.dao.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
@@ -9,7 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Покупатель - ид, ФИО, дата рождения
@@ -17,8 +19,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(schema = "schema")
 public class Buyers implements Serializable {
     
@@ -28,22 +29,19 @@ public class Buyers implements Serializable {
     
     @JoinColumn
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Users user;
     
     @Column(nullable = false)
-    private LocalDate dateOfBirth;
+    private LocalDate dateOfBirth, dateRegistration;
     
+    @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Fetch(FetchMode.JOIN)
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "buyer")
-    private Collection<Orders> orders;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Orders> orders;
     
-    public Buyers(Long id, Users user, LocalDate dateOfBirth) {
-        this.id = id;
-        this.user = user;
-        this.dateOfBirth = dateOfBirth;
-    }
-    
+    @Column
+    private String firstName, lastName;
     
 }

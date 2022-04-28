@@ -1,11 +1,14 @@
 package com.learnup.project.dao.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
  * Заказ - ид покупателя, ид заказа, сумма покупки
@@ -13,8 +16,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(schema = "schema")
 public class Orders implements Serializable {
     
@@ -27,12 +29,11 @@ public class Orders implements Serializable {
     private Long purchaseAmount;
     
     @JoinColumn
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Collection<Buyers> buyer;
-
-
-    public Orders(Long id, Long purchaseAmount) {
-        this.id = id;
-        this.purchaseAmount = purchaseAmount;
-    }
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Buyers buyer;
+    
+    @OneToOne
+    private OrderDetails orderDetails;
+    
 }

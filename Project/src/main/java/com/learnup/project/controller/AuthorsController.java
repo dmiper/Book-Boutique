@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
-import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -23,25 +22,25 @@ public class AuthorsController {
     
     private final AuthorsService authorsService;
     private final AuthorsViewMapper authorsViewMapper;
-
+    
     @GetMapping
-    public List<AuthorsView> getBooks(
+    public Set<AuthorsView> getAuthors(
             @RequestParam(value = "fullName", required = false) String fullName,
-            @RequestParam(value = "book", required = false) Collection<Books> book
+            @RequestParam(value = "book", required = false) Set<Books> book
     ) {
         return authorsService.getAllAuthors(new AuthorsFilter(fullName, book))
                 .stream()
                 .map(authorsViewMapper::mapAuthorsToView)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
     
     @GetMapping("/{id}")
-    public AuthorsView booksView(@PathVariable("id") Long id) {
+    public AuthorsView getAuthorById(@PathVariable("id") Long id) {
         return authorsViewMapper.mapAuthorsToView(authorsService.getAuthorById(id));
     }
     
     @PostMapping
-    public AuthorsView createBook(@RequestBody AuthorsView authorsView) {
+    public AuthorsView createAuthor(@RequestBody AuthorsView authorsView) {
         if (authorsView.getId() != null) {
             throw new EntityExistsException(
                     String.format("Authors with id = %s already exist", authorsView.getId())
@@ -62,9 +61,6 @@ public class AuthorsController {
             throw new RuntimeException("Entity has bad id");
         }
         Authors authors = authorsService.getAuthorById(id);
-        /*if (!authors.getBook().equals(authorsView.getBooks())) {
-            authors.setBook(authorsView.getBooks());
-        }*/
         if (!authors.getFullName().equals(authorsView.getFullName())) {
             authors.setFullName(authorsView.getFullName());
         }

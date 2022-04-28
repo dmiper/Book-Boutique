@@ -6,40 +6,45 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
-/**
- * Автор - ФИО, ид
- */
-@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
 @ToString
+@Entity
 @Table(schema = "schema")
-public class Authors implements Serializable {
+public class Role /*implements GrantedAuthority*/ {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @Column(nullable = false, unique = true)
-    private String fullName;
+    private String role;
     
-    @JoinColumn
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @Fetch(FetchMode.JOIN)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Books> book;
+    private Set<Users> users;
     
-    public Authors(Long id, String fullName, Set<Books> book) {
-        this.id = id;
-        this.fullName = fullName;
-        this.book = book;
+    /*@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(id, role.id) && Objects.equals(this.role, role.role) && Objects.equals(users, role.users);
     }
+    
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+    
+    @Override
+    public String getAuthority() {
+        return role;
+    }*/
+    
 }

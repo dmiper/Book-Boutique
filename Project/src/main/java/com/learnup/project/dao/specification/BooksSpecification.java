@@ -33,7 +33,11 @@ public class BooksSpecification {
             if (booksFilter.getPrice() != null) {
                 predicate = cb.and(predicate, cb.like(root.get("price"), "%" + booksFilter.getPrice() + "%"));
             }
-            
+    
+            if (booksFilter.getBookWarehouse() != null) {
+                predicate = cb.and(predicate, cb.like(root.get("bookWarehouse"), "%" + booksFilter.getBookWarehouse() + "%"));
+            }
+    
             return predicate;
         };
     }

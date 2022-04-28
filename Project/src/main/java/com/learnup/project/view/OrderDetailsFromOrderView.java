@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrdersNoBuyersView {
-
-    private Long id;
-
-    private Long purchaseAmount;
-
+public class OrderDetailsFromOrderView {
+    
+    private Long id, quantity, price;
+    
+    private BooksView book;
+    
 }

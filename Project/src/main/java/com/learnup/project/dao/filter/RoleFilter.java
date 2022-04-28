@@ -1,6 +1,6 @@
 package com.learnup.project.dao.filter;
 
-import com.learnup.project.dao.entity.Books;
+import com.learnup.project.dao.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,10 +8,9 @@ import java.util.Set;
 
 @Data
 @AllArgsConstructor
-public class AuthorsFilter {
+public class RoleFilter {
     
-    private final String fullName;
+    private final String role;
     
-    private final Set<Books> book;
-    
+    private final Set<Users> users;
 }

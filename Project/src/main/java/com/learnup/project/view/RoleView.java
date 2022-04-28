@@ -9,12 +9,12 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthorsView {
-
+public class RoleView {
+    
     private Long id;
+    
+    private String role;
+    
+    private Set<UsersFromRoleView> users;
 
-    private String fullName;
-    
-    private Set<BooksFromAuthorView> books;
-    
 }

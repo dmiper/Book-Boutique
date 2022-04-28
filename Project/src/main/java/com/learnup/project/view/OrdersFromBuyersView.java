@@ -7,9 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsersRoleView {
+public class OrdersFromBuyersView {
     
     private Long id;
     
-    private String role;
+    private Long purchaseAmount;
+    
+    private OrderDetailsFromOrderView orderDetails;
+    
 }

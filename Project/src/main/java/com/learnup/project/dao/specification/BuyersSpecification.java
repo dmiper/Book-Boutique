@@ -22,10 +22,22 @@ public class BuyersSpecification {
                 predicate = cb.and(predicate, cb.like(root.get("dateOfBirth"), "%" + buyersFilter.getDateOfBirth() + "%"));
             }
     
+            if (buyersFilter.getDateRegistration() != null) {
+                predicate = cb.and(predicate, cb.like(root.get("dateRegistration"), "%" + buyersFilter.getDateRegistration() + "%"));
+            }
+    
             if (buyersFilter.getOrders() != null) {
                 predicate = cb.and(predicate, cb.like(root.get("orders"), "%" + buyersFilter.getOrders() + "%"));
             }
-            
+    
+            if (buyersFilter.getFirstName() != null) {
+                predicate = cb.and(predicate, cb.like(root.get("firstName"), "%" + buyersFilter.getFirstName() + "%"));
+            }
+    
+            if (buyersFilter.getLastName() != null) {
+                predicate = cb.and(predicate, cb.like(root.get("lastName"), "%" + buyersFilter.getLastName() + "%"));
+            }
+    
             return predicate;
         };
     }

@@ -1,6 +1,9 @@
 package com.learnup.project.dao.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -14,8 +17,8 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
+@ToString
 @Table(schema = "schema")
 public class OrderDetails implements Serializable {
 
@@ -28,7 +31,7 @@ public class OrderDetails implements Serializable {
     
     @JoinColumn
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Books book;
     
     @Min(value = 0)

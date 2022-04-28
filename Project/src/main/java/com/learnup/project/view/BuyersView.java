@@ -1,24 +1,25 @@
 package com.learnup.project.view;
 
-import com.learnup.project.dao.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class BuyersView {
-
+    
     private Long id;
     
-    private Users user;
-
-    private LocalDate dateOfBirth;
+    private UsersFromBuyerView user;
     
-    private Collection<OrdersNoBuyersView> orders;
-
+    private LocalDate dateOfBirth, dateRegistration;
+    
+    private Set<OrdersFromBuyersView> orders;
+    
+    private String firstName, lastName;
+    
 }

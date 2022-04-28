@@ -21,7 +21,11 @@ public class OrdersSpecification {
             if (ordersFilter.getPurchaseAmount() != null) {
                 predicate = cb.and(predicate, cb.like(root.get("purchaseAmount"), "%" + ordersFilter.getPurchaseAmount() + "%"));
             }
-            
+    
+            if (ordersFilter.getOrderDetails() != null) {
+                predicate = cb.and(predicate, cb.like(root.get("orderDetails"), "%" + ordersFilter.getOrderDetails() + "%"));
+            }
+    
             return predicate;
         };
     }

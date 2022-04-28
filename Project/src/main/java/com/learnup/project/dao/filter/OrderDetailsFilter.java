@@ -13,7 +13,5 @@ public class OrderDetailsFilter {
     
     private final Books book;
     
-    private final Long quantity;
-    
-    private final Long price;
+    private final Long quantity, price;
 }

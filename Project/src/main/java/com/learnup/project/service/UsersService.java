@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.OptimisticLockException;
-import java.util.List;
+import java.util.Set;
 
 import static com.learnup.project.dao.specification.UsersSpecification.byUsersFilter;
 
@@ -20,7 +20,7 @@ public class UsersService {
     
     private final UsersRepository usersRepository;
     
-    public List<Users> getAllUsers(UsersFilter usersFilter) {
+    public Set<Users> getAllUsers(UsersFilter usersFilter) {
         Specification<Users> specification = Specification.where(byUsersFilter(usersFilter));
         log.info("Request getAllUsers: {}", specification);
         return usersRepository.findAll(specification);

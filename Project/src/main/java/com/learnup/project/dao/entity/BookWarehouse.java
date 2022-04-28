@@ -1,6 +1,8 @@
 package com.learnup.project.dao.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -12,8 +14,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(schema = "schema")
 public class BookWarehouse implements Serializable {
     
@@ -30,5 +31,11 @@ public class BookWarehouse implements Serializable {
     
     @Version
     private Long version;
+    
+    public BookWarehouse(Long id, Books book, Long theRestOfTheBooks) {
+        this.id = id;
+        this.theRestOfTheBooks = theRestOfTheBooks;
+        this.book = book;
+    }
     
 }

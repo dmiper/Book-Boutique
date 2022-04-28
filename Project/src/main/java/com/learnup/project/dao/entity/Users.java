@@ -1,14 +1,17 @@
 package com.learnup.project.dao.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import javax.validation.constraints.Email;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(schema = "schema")
 public class Users {
@@ -17,16 +20,19 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @JoinColumn
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Role role;
+    
+    @Column(nullable = false, unique = true)
+    private String loginName, hashPassword;
+    
+    @Email
+    @Column(nullable = false, unique = true)
+    private String email;
+    
     @OneToOne
-    private UsersRole role;
-    
-    @Column(unique = true)
-    private String loginName, email, hashPassword;
-    
-    @Column
-    private String firstName, lastName;
-    
-    @Column
-    private LocalDate dateRegistration;
+    private Buyers buyer;
     
 }

@@ -1,12 +1,15 @@
 package com.learnup.project.view.mapper;
 
 import com.learnup.project.dao.entity.Authors;
+import com.learnup.project.dao.entity.BookWarehouse;
 import com.learnup.project.dao.entity.Books;
-import com.learnup.project.view.AuthorsNoBookView;
+import com.learnup.project.view.AuthorsFromBookView;
+import com.learnup.project.view.BookWarehouseFromBookView;
 import com.learnup.project.view.BooksView;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class BooksViewMapper {
@@ -18,16 +21,17 @@ public class BooksViewMapper {
         booksView.setPrice(books.getPrice());
         booksView.setNumberOfPages(books.getNumberOfPages());
         booksView.setYearOfPublication(books.getYearOfPublication());
-        if (books.getAuthor() != null) {
-            booksView.setAuthor(
-                    books.getAuthor()
-                            .stream()
-                            .map(authors -> new AuthorsNoBookView(
-                                    authors.getId(),
-                                    authors.getFullName()))
-                            .collect(Collectors.toList())
-            );
-        }
+        booksView.setAuthor(
+                new AuthorsFromBookView(
+                        books.getAuthor().getId(),
+                        books.getAuthor().getFullName()
+                ));
+        booksView.setBookWarehouse(
+                new BookWarehouseFromBookView(
+                        books.getBookWarehouse().getId(),
+                        books.getBookWarehouse().getTheRestOfTheBooks()
+                )
+        );
         return booksView;
     }
     
@@ -38,16 +42,19 @@ public class BooksViewMapper {
         books.setPrice(booksView.getPrice());
         books.setNumberOfPages(booksView.getNumberOfPages());
         books.setYearOfPublication(booksView.getYearOfPublication());
-        if (booksView.getAuthor() != null) {
-            books.setAuthor(
-                    booksView.getAuthor()
-                            .stream()
-                            .map(authorsNoBookView -> new Authors(
-                                    authorsNoBookView.getId(),
-                                    authorsNoBookView.getFullName()))
-                            .collect(Collectors.toList())
-            );
-        }
+        Set<Books> booksSet = new HashSet<>();
+        booksSet.add(books);
+        books.setAuthor(
+                new Authors(
+                        booksView.getAuthor().getId(),
+                        booksView.getAuthor().getFullName(),
+                        booksSet));
+        books.setBookWarehouse(
+                    new BookWarehouse(
+                            booksView.getBookWarehouse().getId(),
+                            books,
+                            booksView.getBookWarehouse().getTheRestOfTheBooks()
+                    ));
         return books;
     }
     

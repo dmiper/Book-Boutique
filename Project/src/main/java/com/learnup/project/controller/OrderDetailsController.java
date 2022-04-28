@@ -4,7 +4,9 @@ import com.learnup.project.dao.entity.Books;
 import com.learnup.project.dao.entity.OrderDetails;
 import com.learnup.project.dao.entity.Orders;
 import com.learnup.project.dao.filter.OrderDetailsFilter;
+import com.learnup.project.service.BooksService;
 import com.learnup.project.service.OrderDetailsService;
+import com.learnup.project.service.OrdersService;
 import com.learnup.project.view.OrderDetailsView;
 import com.learnup.project.view.mapper.OrderDetailsViewMapper;
 import lombok.AllArgsConstructor;
@@ -12,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,10 +24,13 @@ import java.util.stream.Collectors;
 public class OrderDetailsController {
     
     private final OrderDetailsService orderDetailsService;
+    private final BooksService booksService;
+    private final OrdersService ordersService;
+    
     private final OrderDetailsViewMapper orderDetailsViewMapper;
     
     @GetMapping
-    public List<OrderDetailsView> getOrderDetails(
+    public Set<OrderDetailsView> getOrderDetails(
             @RequestParam(value = "order", required = false) Orders order,
             @RequestParam(value = "book", required = false) Books book,
             @RequestParam(value = "quantity", required = false) Long quantity,
@@ -34,11 +39,11 @@ public class OrderDetailsController {
         return orderDetailsService.getAllOrderDetails(new OrderDetailsFilter(order, book, quantity, price))
                 .stream()
                 .map(orderDetailsViewMapper::mapOrderDetailsToView)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
     
     @GetMapping("/{id}")
-    public OrderDetailsView getOrderDetail(@PathVariable("id") Long id) {
+    public OrderDetailsView getOrderDetailById(@PathVariable("id") Long id) {
         return orderDetailsViewMapper.mapOrderDetailsToView(orderDetailsService.getOrderDetailsById(id));
     }
     
@@ -46,10 +51,10 @@ public class OrderDetailsController {
     public OrderDetailsView createOrderDetail(@RequestBody OrderDetailsView orderDetailsView) {
         if (orderDetailsView.getId() != null) {
             throw new EntityExistsException(
-                    String.format("Books with id = %s already exist", orderDetailsView.getId())
+                    String.format("OrderDetails with id = %s already exist", orderDetailsView.getId())
             );
         }
-        OrderDetails orderDetails = orderDetailsViewMapper.mapOrderDetailsFromView(orderDetailsView);
+        OrderDetails orderDetails = orderDetailsViewMapper.mapOrderDetailsFromView(orderDetailsView, booksService, ordersService);
         OrderDetails createOrderDetails = orderDetailsService.createOrderDetails(orderDetails);
         return orderDetailsViewMapper.mapOrderDetailsToView(createOrderDetails);
     }
@@ -64,17 +69,11 @@ public class OrderDetailsController {
             throw new RuntimeException("Entity has bad id");
         }
         OrderDetails orderDetails = orderDetailsService.getOrderDetailsById(id);
-        if (!orderDetails.getOrder().equals(orderDetailsView.getOrder())) {
-            orderDetails.setOrder(orderDetailsView.getOrder());
-        }
         if (!orderDetails.getPrice().equals(orderDetailsView.getPrice())) {
             orderDetails.setPrice(orderDetailsView.getPrice());
         }
         if (!orderDetails.getQuantity().equals(orderDetailsView.getQuantity())) {
             orderDetails.setQuantity(orderDetailsView.getQuantity());
-        }
-        if (!orderDetails.getBook().equals(orderDetailsView.getBook())) {
-            orderDetails.setBook(orderDetailsView.getBook());
         }
         OrderDetails updateAuthor = orderDetailsService.updateOrderDetail(orderDetails);
         return orderDetailsViewMapper.mapOrderDetailsToView(updateAuthor);

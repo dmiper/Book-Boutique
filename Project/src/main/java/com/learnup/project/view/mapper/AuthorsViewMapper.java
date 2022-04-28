@@ -1,9 +1,8 @@
 package com.learnup.project.view.mapper;
 
 import com.learnup.project.dao.entity.Authors;
-import com.learnup.project.dao.entity.Books;
 import com.learnup.project.view.AuthorsView;
-import com.learnup.project.view.BooksNoAuthorView;
+import com.learnup.project.view.BooksFromAuthorView;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -19,13 +18,13 @@ public class AuthorsViewMapper {
             authorsView.setBooks(
                     authors.getBook()
                             .stream()
-                            .map(books -> new BooksNoAuthorView(
+                            .map(books -> new BooksFromAuthorView(
                                     books.getId(),
                                     books.getTitle(),
                                     books.getYearOfPublication(),
                                     books.getNumberOfPages(),
                                     books.getPrice()))
-                            .collect(Collectors.toList()));
+                            .collect(Collectors.toSet()));
         }
         return authorsView;
     }
@@ -34,18 +33,6 @@ public class AuthorsViewMapper {
         Authors authors = new Authors();
         authors.setId(authorsView.getId());
         authors.setFullName(authorsView.getFullName());
-        if (authorsView.getBooks() != null) {
-            authors.setBook(
-                    authorsView.getBooks()
-                            .stream()
-                            .map(booksNoAuthorView -> new Books(
-                                    booksNoAuthorView.getId(),
-                                    booksNoAuthorView.getTitle(),
-                                    booksNoAuthorView.getYearOfPublication(),
-                                    booksNoAuthorView.getNumberOfPages(),
-                                    booksNoAuthorView.getPrice()))
-                            .collect(Collectors.toList()));
-        }
         return authors;
     }
     
