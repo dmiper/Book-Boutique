@@ -5,11 +5,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import java.util.List;
 
 @Repository
 public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Long> {
     
-    Set<OrderDetails> findAll(Specification<OrderDetails> specification);
-
+    List<OrderDetails> findAll(Specification<OrderDetails> specification);
+    
+    OrderDetails getOrderDetailsById(Long id);
+    
 }

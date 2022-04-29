@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,7 +27,7 @@ public class AuthorsController {
     @GetMapping
     public Set<AuthorsView> getAuthors(
             @RequestParam(value = "fullName", required = false) String fullName,
-            @RequestParam(value = "book", required = false) Set<Books> book
+            @RequestParam(value = "book", required = false) List<Books> book
     ) {
         return authorsService.getAllAuthors(new AuthorsFilter(fullName, book))
                 .stream()

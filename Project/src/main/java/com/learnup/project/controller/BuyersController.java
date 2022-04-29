@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -28,18 +28,18 @@ public class BuyersController {
     private final BuyersViewMapper buyersViewMapper;
     
     @GetMapping
-    public Set<BuyersView> getBuyers(
+    public List<BuyersView> getBuyers(
             @RequestParam(value = "user", required = false) Users user,
             @RequestParam(value = "dateOfBirth", required = false) LocalDate dateOfBirth,
             @RequestParam(value = "dateRegistration", required = false) LocalDate dateRegistration,
-            @RequestParam(value = "orders", required = false) Set<Orders> orders,
+            @RequestParam(value = "orders", required = false) List<Orders> orders,
             @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "lastName", required = false) String lastName
     ) {
         return buyersService.getAllBuyers(new BuyersFilter(user, dateOfBirth, dateRegistration, orders, firstName, lastName))
                 .stream()
                 .map(buyersViewMapper::mapBuyersToView)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
     
     @GetMapping("/{id}")

@@ -3,17 +3,15 @@ package com.learnup.project.dao.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
-@ToString
 @Entity
 @Table(schema = "schema")
 public class Role /*implements GrantedAuthority*/ {
@@ -26,8 +24,8 @@ public class Role /*implements GrantedAuthority*/ {
     private String role;
     
     @Fetch(FetchMode.JOIN)
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Users> users;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
+    private List<Users> users;
     
     /*@Override
     public boolean equals(Object o) {

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,14 +25,14 @@ public class RoleController {
     private final RoleViewMapper roleViewMapper;
     
     @GetMapping
-    public Set<RoleView> getRole(
+    public List<RoleView> getRole(
             @RequestParam(value = "role", required = false) String role,
-            @RequestParam(value = "users", required = false) Set<Users> users
+            @RequestParam(value = "users", required = false) List<Users> users
     ) {
         return roleService.getAllRole(new RoleFilter(role, users))
                 .stream()
                 .map(roleViewMapper::mapUsersRoleToView)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
     
     @GetMapping("/{id}")

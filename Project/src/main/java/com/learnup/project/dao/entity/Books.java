@@ -37,7 +37,7 @@ public class Books implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Authors author;
     
-    @OneToOne
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private BookWarehouse bookWarehouse;
     
 }

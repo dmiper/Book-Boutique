@@ -49,7 +49,7 @@ public class BuyersViewMapper {
                                                         orders.getOrderDetails().getBook().getBookWarehouse().getId(),
                                                         orders.getOrderDetails().getBook().getBookWarehouse().getTheRestOfTheBooks()
                                                 )))))
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toList()));
     
         return buyersView;
     }

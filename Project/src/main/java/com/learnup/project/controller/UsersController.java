@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,7 +28,7 @@ public class UsersController {
     private final UsersViewMapper usersViewMapper;
     
     @GetMapping
-    public Set<UsersView> getUsers(
+    public List<UsersView> getUsers(
             @RequestParam(value = "role", required = false) Role role,
             @RequestParam(value = "loginName", required = false) String loginName,
             @RequestParam(value = "email", required = false) String email,
@@ -38,7 +38,7 @@ public class UsersController {
         return usersService.getAllUsers(new UsersFilter(role, loginName, email, hashPassword, buyer))
                 .stream()
                 .map(usersViewMapper::mapUsersToView)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
     
     @GetMapping("/{id}")

@@ -5,11 +5,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import java.util.List;
 
 @Repository
 public interface BookWarehouseRepository extends JpaRepository<BookWarehouse, Long> {
     
-    Set<BookWarehouse> findAll(Specification<BookWarehouse> specification);
-
+    List<BookWarehouse> findAll(Specification<BookWarehouse> specification);
+    
+    BookWarehouse getBookWarehouseById(Long id);
+    
 }

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -26,7 +26,7 @@ public class BooksController {
     private final BooksViewMapper booksViewMapper;
     
     @GetMapping
-    public Set<BooksView> getBooks(
+    public List<BooksView> getBooks(
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "author", required = false) Authors author,
             @RequestParam(value = "yearOfPublication", required = false) LocalDate yearOfPublication,
@@ -37,7 +37,7 @@ public class BooksController {
         return booksService.getAllBooks(new BooksFilter(title, author, yearOfPublication, numberOfPages, price, bookWarehouse))
                 .stream()
                 .map(booksViewMapper::mapBooksToView)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
     
     @GetMapping("/{id}")

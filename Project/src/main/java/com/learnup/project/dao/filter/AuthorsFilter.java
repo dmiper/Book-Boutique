@@ -4,7 +4,7 @@ import com.learnup.project.dao.entity.Books;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -12,6 +12,6 @@ public class AuthorsFilter {
     
     private final String fullName;
     
-    private final Set<Books> book;
+    private final List<Books> book;
     
 }

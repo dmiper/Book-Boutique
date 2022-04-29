@@ -28,7 +28,6 @@ public class Orders implements Serializable {
     @Column(nullable = false)
     private Long purchaseAmount;
     
-    @JoinColumn
     @Fetch(FetchMode.JOIN)
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Buyers buyer;

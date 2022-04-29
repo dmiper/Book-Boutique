@@ -32,7 +32,7 @@ public class Users {
     @Column(nullable = false, unique = true)
     private String email;
     
-    @OneToOne
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Buyers buyer;
     
 }

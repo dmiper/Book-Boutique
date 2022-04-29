@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.OptimisticLockException;
 import javax.transaction.Transactional;
-import java.util.Set;
+import java.util.List;
 
 import static com.learnup.project.dao.specification.BookWarehouseSpecification.byBookWarehouseFilter;
 
@@ -21,7 +21,7 @@ public class BookWarehouseService {
     
     private final BookWarehouseRepository bookWarehouseRepository;
     
-    public Set<BookWarehouse> getAllBookWarehouse(BookWarehouseFilter bookWarehouseFilter) {
+    public List<BookWarehouse> getAllBookWarehouse(BookWarehouseFilter bookWarehouseFilter) {
         Specification<BookWarehouse> specification = Specification.where(byBookWarehouseFilter(bookWarehouseFilter));
         log.info("Request getAllBookWarehouse: {}", specification);
         return bookWarehouseRepository.findAll(specification);
@@ -35,7 +35,7 @@ public class BookWarehouseService {
     
     public BookWarehouse getBookWarehouseById(Long id) {
         log.info("Request getBookWarehouseById: {}", id);
-        return bookWarehouseRepository.getById(id);
+        return bookWarehouseRepository.getBookWarehouseById(id);
     }
     
     public Boolean deleteBookWarehouse(Long id) {

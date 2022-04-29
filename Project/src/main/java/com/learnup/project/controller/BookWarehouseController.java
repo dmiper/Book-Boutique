@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -27,14 +27,14 @@ public class BookWarehouseController {
     private final BookWarehouseViewMapper bookWarehouseViewMapper;
     
     @GetMapping
-    public Set<BookWarehouseView> getBookWarehouse(
+    public List<BookWarehouseView> getBookWarehouse(
             @RequestParam(value = "book", required = false) Books book,
             @RequestParam(value = "theRestOfTheBooks", required = false) Long theRestOfTheBooks
     ) {
         return bookWarehouseService.getAllBookWarehouse(new BookWarehouseFilter(book, theRestOfTheBooks))
                 .stream()
                 .map(bookWarehouseViewMapper::mapBookWarehouseToView)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
     
     @GetMapping("/{id}")

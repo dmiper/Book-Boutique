@@ -9,9 +9,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.OptimisticLockException;
-import java.util.Set;
+import java.util.List;
 
-import static com.learnup.project.dao.specification.UsersRoleSpecification.byUsersRoleFilter;
+import static com.learnup.project.dao.specification.RoleSpecification.byUsersRoleFilter;
 
 @Slf4j
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class RoleService {
     
     private final RoleRepository roleRepository;
     
-    public Set<Role> getAllRole(RoleFilter roleFilter) {
+    public List<Role> getAllRole(RoleFilter roleFilter) {
         Specification<Role> specification = Specification.where(byUsersRoleFilter(roleFilter));
         log.info("Request getAllUsersRole: {}", specification);
         return roleRepository.findAll(specification);
@@ -33,7 +33,7 @@ public class RoleService {
     
     public Role getRoleById(Long id) {
         log.info("Request getUserRoleById: {}", id);
-        return roleRepository.getById(id);
+        return roleRepository.getRoleById(id);
     }
     
     public Boolean deleteRole(Long id) {

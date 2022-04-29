@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +16,7 @@ public class BuyersFilter {
     
     private final LocalDate dateOfBirth, dateRegistration;
     
-    private final Set<Orders> orders;
+    private final List<Orders> orders;
     
     private final String firstName, lastName;
     

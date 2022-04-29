@@ -8,8 +8,8 @@ import com.learnup.project.view.BookWarehouseFromBookView;
 import com.learnup.project.view.BooksView;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class BooksViewMapper {
@@ -42,19 +42,19 @@ public class BooksViewMapper {
         books.setPrice(booksView.getPrice());
         books.setNumberOfPages(booksView.getNumberOfPages());
         books.setYearOfPublication(booksView.getYearOfPublication());
-        Set<Books> booksSet = new HashSet<>();
-        booksSet.add(books);
+        List<Books> booksList = new ArrayList<>();
+        booksList.add(books);
         books.setAuthor(
                 new Authors(
                         booksView.getAuthor().getId(),
                         booksView.getAuthor().getFullName(),
-                        booksSet));
+                        booksList));
         books.setBookWarehouse(
-                    new BookWarehouse(
-                            booksView.getBookWarehouse().getId(),
-                            books,
-                            booksView.getBookWarehouse().getTheRestOfTheBooks()
-                    ));
+                new BookWarehouse(
+                        booksView.getBookWarehouse().getId(),
+                        books,
+                        booksView.getBookWarehouse().getTheRestOfTheBooks()
+                ));
         return books;
     }
     

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.OptimisticLockException;
-import java.util.Set;
+import java.util.List;
 
 import static com.learnup.project.dao.specification.AuthorsSpecification.byAuthorFilter;
 
@@ -20,7 +20,7 @@ public class AuthorsService {
 
     private final AuthorsRepository authorsRepository;
     
-    public Set<Authors> getAllAuthors(AuthorsFilter authorsFilter) {
+    public List<Authors> getAllAuthors(AuthorsFilter authorsFilter) {
         Specification<Authors> specification = Specification.where(byAuthorFilter(authorsFilter));
         log.info("Request getAllAuthors: {}", specification);
         return authorsRepository.findAll(specification);
@@ -33,7 +33,9 @@ public class AuthorsService {
     
     public Authors getAuthorById(Long id) {
         log.warn("Request getAuthorById: {}", id);
-        return authorsRepository.getById(id);
+        Authors author = authorsRepository.getAuthorsById(id);
+        log.warn("Author: {}", author.toString());
+        return author;
     }
     
     public Boolean deleteAuthor(Long id) {

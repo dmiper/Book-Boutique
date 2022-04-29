@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +15,6 @@ public class AuthorsView {
 
     private String fullName;
     
-    private Set<BooksFromAuthorView> books;
+    private List<BooksFromAuthorView> books;
     
 }

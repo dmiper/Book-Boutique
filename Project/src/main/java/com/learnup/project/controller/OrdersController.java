@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,7 +29,7 @@ public class OrdersController {
     private final OrdersViewMapper ordersViewMapper;
     
     @GetMapping
-    public Set<OrdersView> getOrders(
+    public List<OrdersView> getOrders(
             @RequestParam(value = "purchaseAmount", required = false) Long purchaseAmount,
             @RequestParam(value = "buyer", required = false) Buyers buyer,
             @RequestParam(value = "orderDetails", required = false) OrderDetails orderDetails
@@ -37,7 +37,7 @@ public class OrdersController {
         return ordersService.getAllOrders(new OrdersFilter(purchaseAmount, buyer, orderDetails))
                 .stream()
                 .map(ordersViewMapper::mapOrdersToView)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
     
     @GetMapping("/{id}")

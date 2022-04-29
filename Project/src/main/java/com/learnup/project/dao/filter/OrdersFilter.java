@@ -14,4 +14,5 @@ public class OrdersFilter {
     private final Buyers buyer;
     
     private final OrderDetails orderDetails;
+    
 }

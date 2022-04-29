@@ -14,4 +14,5 @@ public class UsersFilter {
     private final String loginName, email, hashPassword;
     
     private final Buyers buyer;
+    
 }

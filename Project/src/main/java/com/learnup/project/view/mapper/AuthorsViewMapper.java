@@ -24,7 +24,7 @@ public class AuthorsViewMapper {
                                     books.getYearOfPublication(),
                                     books.getNumberOfPages(),
                                     books.getPrice()))
-                            .collect(Collectors.toSet()));
+                            .collect(Collectors.toList()));
         }
         return authorsView;
     }

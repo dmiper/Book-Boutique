@@ -22,7 +22,7 @@ public class RoleViewMapper {
                                     users.getId(),
                                     users.getLoginName()
                             ))
-                            .collect(Collectors.toSet()));
+                            .collect(Collectors.toList()));
         }
         return roleView;
     }

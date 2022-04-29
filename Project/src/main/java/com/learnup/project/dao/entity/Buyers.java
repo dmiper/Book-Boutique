@@ -5,13 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Покупатель - ид, ФИО, дата рождения
@@ -29,17 +27,16 @@ public class Buyers implements Serializable {
     
     @JoinColumn
     @Fetch(FetchMode.JOIN)
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Users user;
     
     @Column(nullable = false)
     private LocalDate dateOfBirth, dateRegistration;
     
-    @JoinColumn
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    
     @Fetch(FetchMode.JOIN)
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Orders> orders;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "buyer")
+    private List<Orders> orders;
     
     @Column
     private String firstName, lastName;

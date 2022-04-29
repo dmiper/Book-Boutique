@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +15,6 @@ public class RoleView {
     
     private String role;
     
-    private Set<UsersFromRoleView> users;
+    private List<UsersFromRoleView> users;
 
 }

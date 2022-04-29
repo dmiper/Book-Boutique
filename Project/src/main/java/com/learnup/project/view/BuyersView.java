@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +18,7 @@ public class BuyersView {
     
     private LocalDate dateOfBirth, dateRegistration;
     
-    private Set<OrdersFromBuyersView> orders;
+    private List<OrdersFromBuyersView> orders;
     
     private String firstName, lastName;
     

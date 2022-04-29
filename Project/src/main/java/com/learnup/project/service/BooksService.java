@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.OptimisticLockException;
-import java.util.Set;
+import java.util.List;
 
 import static com.learnup.project.dao.specification.BooksSpecification.byBookFilter;
 
@@ -19,7 +19,7 @@ import static com.learnup.project.dao.specification.BooksSpecification.byBookFil
 public class BooksService {
     private final BooksRepository booksRepository;
     
-    public Set<Books> getAllBooks(BooksFilter booksFilter) {
+    public List<Books> getAllBooks(BooksFilter booksFilter) {
         Specification<Books> specification = Specification.where(byBookFilter(booksFilter));
         log.info("Request getAllUsers: {}", specification);
         return booksRepository.findAll(specification);
@@ -32,7 +32,7 @@ public class BooksService {
     
     public Books getBookById(Long id) {
         log.info("Request getBookById: {}", id);
-        return booksRepository.getById(id);
+        return booksRepository.getBooksById(id);
     }
     
     public Boolean deleteBook(Long id) {
@@ -52,7 +52,7 @@ public class BooksService {
     }
     
     public Books getBookByTitle(String title) {
-        return booksRepository.getBookByTitle(title);
+        return booksRepository.getBooksByTitle(title);
     }
     
 }

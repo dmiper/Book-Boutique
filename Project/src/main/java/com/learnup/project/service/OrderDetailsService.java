@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.OptimisticLockException;
-import java.util.Set;
+import java.util.List;
 
 import static com.learnup.project.dao.specification.OrderDetailsSpecification.byOrderDetailsFilter;
 
@@ -20,7 +20,7 @@ public class OrderDetailsService {
     
     private final OrderDetailsRepository orderDetailsRepository;
     
-    public Set<OrderDetails> getAllOrderDetails(OrderDetailsFilter orderDetailsFilter) {
+    public List<OrderDetails> getAllOrderDetails(OrderDetailsFilter orderDetailsFilter) {
         Specification<OrderDetails> specification = Specification.where(byOrderDetailsFilter(orderDetailsFilter));
         log.info("Request getAllOrderDetails: {}", specification);
         return orderDetailsRepository.findAll(specification);
@@ -33,7 +33,7 @@ public class OrderDetailsService {
     
     public OrderDetails getOrderDetailsById(Long id) {
         log.info("Request getOrderDetailsById: {}", id);
-        return orderDetailsRepository.getById(id);
+        return orderDetailsRepository.getOrderDetailsById(id);
     }
     
     public Boolean deleteOrderDetail(Long id) {

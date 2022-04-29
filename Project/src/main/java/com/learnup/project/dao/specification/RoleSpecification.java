@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Predicate;
 
-public class UsersRoleSpecification {
+public class RoleSpecification {
     
     public static Specification<Role> byUsersRoleFilter(RoleFilter roleFilter) {
         
