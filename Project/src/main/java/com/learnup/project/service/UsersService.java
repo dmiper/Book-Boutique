@@ -1,13 +1,16 @@
 package com.learnup.project.service;
 
+import com.learnup.project.dao.entity.Role;
 import com.learnup.project.dao.entity.Users;
 import com.learnup.project.dao.filter.UsersFilter;
+import com.learnup.project.dao.repository.RoleRepository;
 import com.learnup.project.dao.repository.UsersRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.OptimisticLockException;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import static com.learnup.project.dao.specification.UsersSpecification.byUsersFi
 public class UsersService {
     
     private final UsersRepository usersRepository;
+    private final RoleRepository roleRepository;
     
     public List<Users> getAllUsers(UsersFilter usersFilter) {
         Specification<Users> specification = Specification.where(byUsersFilter(usersFilter));
@@ -27,6 +31,22 @@ public class UsersService {
     }
     
     public Users createUser(Users users) {
+        Users exist = usersRepository.findByLoginName(users.getLoginName());
+        if (exist != null) {
+            throw new EntityExistsException("login with login " + users.getLoginName() + " already exist");
+        }
+    
+        //String password = passwordEncoder.encode(user.getPassword());
+        //TODO: Alo???
+        /*
+        users.setHashPassword(users.getHashPassword());
+    
+        String roles = users.getRole().getRole();
+    
+        Role existRoles = roleRepository.findByRole(roles);
+        users.setRole(existRoles);
+        existRoles.setUsers(List.of(users));
+        */
         log.info("CreateUser: {}", users.toString());
         return usersRepository.save(users);
     }
