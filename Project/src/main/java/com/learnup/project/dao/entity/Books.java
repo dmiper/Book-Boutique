@@ -34,10 +34,10 @@ public class Books implements Serializable {
     private Long numberOfPages, price;
     
     @JoinColumn
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Authors author;
     
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.PERSIST,optional = false, fetch = FetchType.LAZY)
     private BookWarehouse bookWarehouse;
     
 }

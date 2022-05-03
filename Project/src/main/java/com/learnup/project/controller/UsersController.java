@@ -59,7 +59,7 @@ public class UsersController {
     }
     
     @PutMapping("/{id}")
-    public UsersView updateAuthor(@PathVariable("id") Long id,
+    public UsersView updateUser(@PathVariable("id") Long id,
                                   @RequestBody UsersView authorsView) {
         if (authorsView.getId() == null) {
             throw new EntityNotFoundException("Try to found null entity");

@@ -22,7 +22,7 @@ public class BookWarehouse implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.PERSIST,optional = false, fetch = FetchType.LAZY)
     private Books book;
     
     @Min(value = 0)

@@ -47,7 +47,7 @@ public class UsersService {
         users.setRole(existRoles);
         existRoles.setUsers(List.of(users));
         */
-        log.info("CreateUser: {}", users.toString());
+        log.info("CreateUser: {}", users);
         return usersRepository.save(users);
     }
     

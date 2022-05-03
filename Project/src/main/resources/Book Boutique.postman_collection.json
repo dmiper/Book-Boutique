@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "701a9234-8c70-409d-99cc-570a3a48960c",
+		"_postman_id": "96aa4dc7-526d-4c99-9aca-c5f008bd2cbc",
 		"name": "Book Boutique",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1002,7 +1002,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"loginName\": \"Dmiper\",\r\n    \"email\": \"qwerty@mail.ochko\",\r\n    \"hashPassword\": \"qwerty\",\r\n    \"role\": {\r\n        \"role\": \"User\"\r\n        }\r\n}",
+							"raw": "{\r\n    \"loginName\": \"Dmiper\",\r\n    \"email\": \"qwerty@mail.ochko\",\r\n    \"hashPassword\": \"qwerty\",\r\n    \"buyer\":{\r\n        \"firstName\": \"Dmi\",\r\n        \"lastName\": \"Per\",\r\n        \"dateOfBirth\": \"2020-03-16\",\r\n        \"dateRegistration\": \"2022-04-15\"\r\n    },\r\n    \"role\": {\r\n        \"role\": \"User\"\r\n        }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

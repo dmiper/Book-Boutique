@@ -27,18 +27,26 @@ public class Buyers implements Serializable {
     
     @JoinColumn
     @Fetch(FetchMode.JOIN)
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Users user;
-    
+
     @Column(nullable = false)
     private LocalDate dateOfBirth, dateRegistration;
-    
-    
+
+
     @Fetch(FetchMode.JOIN)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "buyer")
     private List<Orders> orders;
-    
+
     @Column
     private String firstName, lastName;
-    
+
+    public Buyers(Long id, LocalDate dateOfBirth, LocalDate dateRegistration, String firstName, String lastName, Users user) {
+        this.id = id;
+        this.dateOfBirth = dateOfBirth;
+        this.dateRegistration = dateRegistration;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.user = user;
+    }
 }

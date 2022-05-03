@@ -29,7 +29,7 @@ public class Orders implements Serializable {
     private Long purchaseAmount;
     
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Buyers buyer;
     
     @OneToOne

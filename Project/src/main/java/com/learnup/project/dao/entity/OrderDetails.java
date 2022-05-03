@@ -31,7 +31,7 @@ public class OrderDetails implements Serializable {
     
     @JoinColumn
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Books book;
     
     @Min(value = 0)

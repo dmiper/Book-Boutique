@@ -1,5 +1,6 @@
 package com.learnup.project.view.mapper;
 
+import com.learnup.project.dao.entity.Buyers;
 import com.learnup.project.dao.entity.Users;
 import com.learnup.project.service.RoleService;
 import com.learnup.project.view.BuyersFromUserView;
@@ -41,6 +42,15 @@ public class UsersViewMapper {
         users.setHashPassword(usersView.getHashPassword());
         users.setLoginName(usersView.getLoginName());
         users.setRole(roleService.getRoleByRole(usersView.getRole().getRole()));
+        users.setBuyer(
+                new Buyers(
+                        usersView.getBuyer().getId(),
+                        usersView.getBuyer().getDateOfBirth(),
+                        usersView.getBuyer().getDateRegistration(),
+                        usersView.getBuyer().getFirstName(),
+                        usersView.getBuyer().getLastName(),
+                        users
+                ));
         return users;
     }
     
