@@ -18,10 +18,6 @@ public class RoleSpecification {
                 predicate = cb.and(predicate, cb.like(root.get("role"), "%" + roleFilter.getRole() + "%"));
             }
     
-            if (roleFilter.getUsers() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("users"), "%" + roleFilter.getUsers() + "%"));
-            }
-    
             return predicate;
         };
     }

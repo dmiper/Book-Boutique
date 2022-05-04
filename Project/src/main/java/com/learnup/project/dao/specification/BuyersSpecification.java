@@ -13,10 +13,7 @@ public class BuyersSpecification {
         return (root, q, cb) -> {
             
             Predicate predicate = cb.isNotNull(root.get("id"));
-            
-            if (buyersFilter.getUser() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("user"), "%" + buyersFilter.getUser() + "%"));
-            }
+           
             
             if (buyersFilter.getDateOfBirth() != null) {
                 predicate = cb.and(predicate, cb.like(root.get("dateOfBirth"), "%" + buyersFilter.getDateOfBirth() + "%"));
@@ -24,10 +21,6 @@ public class BuyersSpecification {
     
             if (buyersFilter.getDateRegistration() != null) {
                 predicate = cb.and(predicate, cb.like(root.get("dateRegistration"), "%" + buyersFilter.getDateRegistration() + "%"));
-            }
-    
-            if (buyersFilter.getOrders() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("orders"), "%" + buyersFilter.getOrders() + "%"));
             }
     
             if (buyersFilter.getFirstName() != null) {

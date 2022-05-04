@@ -22,32 +22,32 @@ public class RoleService {
     
     public List<Role> getAllRole(RoleFilter roleFilter) {
         Specification<Role> specification = Specification.where(byUsersRoleFilter(roleFilter));
-        log.info("Request getAllUsersRole: {}", specification);
+        log.info("Request getAllRole: {}", specification);
         return roleRepository.findAll(specification);
     }
     
     public Role createRole(Role role) {
-        log.info("CreateUserRole: {}", role.toString());
+        log.info("CreateRole: {}", role.toString());
         return roleRepository.save(role);
     }
     
     public Role getRoleById(Long id) {
-        log.info("Request getUserRoleById: {}", id);
+        log.info("Request getRoleById: {}", id);
         return roleRepository.getRoleById(id);
     }
     
     public Boolean deleteRole(Long id) {
-        log.info("DeleteUserRole by id: {}", id);
+        log.info("DeleteRole by id: {}", id);
         roleRepository.delete(roleRepository.getById(id));
         return true;
     }
     
     public Role updateRole(Role role) {
         try {
-            log.info("UpdateUserRole: {}", role.toString());
+            log.info("UpdateRole: {}", role.toString());
             return roleRepository.save(role);
         } catch (OptimisticLockException e) {
-            log.warn("Optimistic lock exception for UserRole {}", role.getId());
+            log.warn("Optimistic lock exception for Role {}", role.getId());
             throw e;
         }
     }

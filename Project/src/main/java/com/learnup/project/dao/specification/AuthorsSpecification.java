@@ -18,10 +18,6 @@ public class AuthorsSpecification {
                 predicate = cb.and(predicate, cb.like(root.get("fullName"), "%" + authorsFilter.getFullName() + "%"));
             }
             
-            if (authorsFilter.getBook() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("book"), "%" + authorsFilter.getBook() + "%"));
-            }
-            
             return predicate;
         };
     }

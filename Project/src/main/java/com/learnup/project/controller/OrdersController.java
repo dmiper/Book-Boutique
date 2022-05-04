@@ -1,9 +1,11 @@
 package com.learnup.project.controller;
 
+import com.learnup.project.dao.entity.BookWarehouse;
 import com.learnup.project.dao.entity.Buyers;
 import com.learnup.project.dao.entity.OrderDetails;
 import com.learnup.project.dao.entity.Orders;
 import com.learnup.project.dao.filter.OrdersFilter;
+import com.learnup.project.service.BookWarehouseService;
 import com.learnup.project.service.BuyersService;
 import com.learnup.project.service.OrderDetailsService;
 import com.learnup.project.service.OrdersService;
@@ -24,15 +26,16 @@ import java.util.stream.Collectors;
 public class OrdersController {
     
     private final OrdersService ordersService;
-    private final BuyersService buyersService;
     private final OrderDetailsService orderDetailsService;
+    private final BuyersService buyersService;
+    private final BookWarehouseService bookWarehouseService;
     private final OrdersViewMapper ordersViewMapper;
     
     @GetMapping
     public List<OrdersView> getOrders(
             @RequestParam(value = "purchaseAmount", required = false) Long purchaseAmount,
             @RequestParam(value = "buyer", required = false) Buyers buyer,
-            @RequestParam(value = "orderDetails", required = false) OrderDetails orderDetails
+            @RequestParam(value = "orderDetails", required = false) List<OrderDetails> orderDetails
     ) {
         return ordersService.getAllOrders(new OrdersFilter(purchaseAmount, buyer, orderDetails))
                 .stream()
@@ -49,12 +52,17 @@ public class OrdersController {
     public OrdersView createOrder(@RequestBody OrdersView ordersView) {
         if (ordersView.getId() != null) {
             throw new EntityExistsException(
-                    String.format("Orders with id = %s already exist", ordersView.getId())
-            );
+                    String.format("Orders with id = %s already exist", ordersView.getId()));
         }
-        Orders orders = ordersViewMapper.mapOrdersFromView(ordersView, buyersService, orderDetailsService);
+        Orders orders = ordersViewMapper.mapOrdersFromView(ordersView, orderDetailsService, buyersService);
         Orders createOrders = ordersService.createOrder(orders);
-        return ordersViewMapper.mapOrdersToView(createOrders);
+        BookWarehouse mapOrdersForBookWarehouseFromView = ordersViewMapper.mapOrdersForBookWarehouseFromView(createOrders);
+        BookWarehouse bookWarehouse = bookWarehouseService.getBookWarehouseById(mapOrdersForBookWarehouseFromView.getId());
+        if (!bookWarehouse.getTheRestOfTheBooks().equals(mapOrdersForBookWarehouseFromView.getTheRestOfTheBooks())) {
+            bookWarehouse.setTheRestOfTheBooks(mapOrdersForBookWarehouseFromView.getTheRestOfTheBooks());
+        }
+        bookWarehouseService.updateBookWarehouse(bookWarehouse);
+        return ordersViewMapper.mapOrdersToView(ordersService.getOrderById(createOrders.getId()));
     }
     
     @PutMapping("/{id}")

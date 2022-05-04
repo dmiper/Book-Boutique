@@ -27,19 +27,19 @@ public class AuthorsService {
     }
     
     public Authors createAuthor(Authors authors) {
-        log.warn("CreateAuthor: {}", authors.toString());
+        log.info("CreateAuthor: {}", authors.toString());
         return authorsRepository.save(authors);
     }
     
     public Authors getAuthorById(Long id) {
-        log.warn("Request getAuthorById: {}", id);
+        log.info("Request getAuthorById: {}", id);
         Authors author = authorsRepository.getAuthorsById(id);
-        log.warn("Author: {}", author.toString());
+        log.info("Author: {}", author.toString());
         return author;
     }
     
     public Boolean deleteAuthor(Long id) {
-        log.warn("DeleteAuthor id: {}", id);
+        log.info("DeleteAuthor id: {}", id);
         authorsRepository.delete(authorsRepository.getById(id));
         return true;
     }
@@ -52,6 +52,13 @@ public class AuthorsService {
             log.warn("Optimistic lock exception for Author id {}", authors.getId());
             throw e;
         }
+    }
+    
+    public Authors getAuthorByFullName(String fullName) {
+        log.info("Request getAuthorByFullName: {}", fullName);
+        Authors author = authorsRepository.getAuthorsByFullName(fullName);
+        log.info("Author: {}", author.toString());
+        return author;
     }
     
 }

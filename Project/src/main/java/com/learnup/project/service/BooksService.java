@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.OptimisticLockException;
 import java.util.List;
 
@@ -26,13 +27,23 @@ public class BooksService {
     }
     
     public Books createBook(Books books) {
-        log.info("CreateBook: {}", books.toString());
+        Books exist;
+        exist = booksRepository.getBooksByTitle(books.getTitle());
+        if (exist != null) {
+            throw new EntityExistsException("Book with Title " + books.getTitle() + " already exist");
+        }
+        log.info("CreateBook: {}", books);
         return booksRepository.save(books);
     }
     
     public Books getBookById(Long id) {
-        log.info("Request getBookById: {}", id);
-        return booksRepository.getBooksById(id);
+        try {
+            log.info("Request getBookById: {}", id);
+            return booksRepository.getBooksById(id);
+        } catch (OptimisticLockException e) {
+            log.warn("Optimistic lock exception for Book id {}", id);
+            throw e;
+        }
     }
     
     public Boolean deleteBook(Long id) {

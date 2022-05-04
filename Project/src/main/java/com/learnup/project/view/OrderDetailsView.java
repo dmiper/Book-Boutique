@@ -11,8 +11,6 @@ public class OrderDetailsView {
     
     private Long id, quantity, price;
     
-    private OrdersFromOrderDetailsView order;
-    
     private BooksView book;
     
 }

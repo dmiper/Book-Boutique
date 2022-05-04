@@ -14,4 +14,5 @@ public interface AuthorsRepository extends JpaRepository<Authors, Long> {
     
     Authors getAuthorsById(Long id);
     
+    Authors getAuthorsByFullName(String fullName);
 }

@@ -1,11 +1,8 @@
 package com.learnup.project.controller;
 
 import com.learnup.project.dao.entity.Buyers;
-import com.learnup.project.dao.entity.Orders;
-import com.learnup.project.dao.entity.Users;
 import com.learnup.project.dao.filter.BuyersFilter;
 import com.learnup.project.service.BuyersService;
-import com.learnup.project.service.UsersService;
 import com.learnup.project.view.BuyersView;
 import com.learnup.project.view.mapper.BuyersViewMapper;
 import lombok.AllArgsConstructor;
@@ -24,19 +21,16 @@ import java.util.stream.Collectors;
 public class BuyersController {
     
     private final BuyersService buyersService;
-    private final UsersService usersService;
     private final BuyersViewMapper buyersViewMapper;
     
     @GetMapping
     public List<BuyersView> getBuyers(
-            @RequestParam(value = "user", required = false) Users user,
             @RequestParam(value = "dateOfBirth", required = false) LocalDate dateOfBirth,
             @RequestParam(value = "dateRegistration", required = false) LocalDate dateRegistration,
-            @RequestParam(value = "orders", required = false) List<Orders> orders,
             @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "lastName", required = false) String lastName
     ) {
-        return buyersService.getAllBuyers(new BuyersFilter(user, dateOfBirth, dateRegistration, orders, firstName, lastName))
+        return buyersService.getAllBuyers(new BuyersFilter(dateOfBirth, dateRegistration, firstName, lastName))
                 .stream()
                 .map(buyersViewMapper::mapBuyersToView)
                 .collect(Collectors.toList());
@@ -54,7 +48,7 @@ public class BuyersController {
                     String.format("Buyers with id = %s already exist", buyersView.getId())
             );
         }
-        Buyers buyers = buyersViewMapper.mapBuyersFromView(buyersView, usersService);
+        Buyers buyers = buyersViewMapper.mapBuyersFromView(buyersView);
         Buyers createBuyers = buyersService.createBuyer(buyers);
         return buyersViewMapper.mapBuyersToView(createBuyers);
     }

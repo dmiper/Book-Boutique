@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,8 +13,8 @@ public class OrdersView {
     
     private Long id, purchaseAmount;
     
-    private BuyersFromOrdersView buyer;
+    private BuyersView buyer;
     
-    private OrderDetailsFromOrderView orderDetails;
+    private List<OrderDetailsView> orderDetails;
     
 }

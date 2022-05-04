@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 /**
- * Книжный склад - информация об остатках книг по идентификатору книги
+ * Книжный склад - ид, информация об остатках книг по идентификатору книги, версия обновления
  */
 @Entity
 @Getter
@@ -22,9 +22,6 @@ public class BookWarehouse implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @OneToOne(cascade = CascadeType.PERSIST,optional = false, fetch = FetchType.LAZY)
-    private Books book;
-    
     @Min(value = 0)
     @Column(nullable = false)
     private Long theRestOfTheBooks;
@@ -32,10 +29,8 @@ public class BookWarehouse implements Serializable {
     @Version
     private Long version;
     
-    public BookWarehouse(Long id, Books book, Long theRestOfTheBooks) {
+    public BookWarehouse(Long id, Long theRestOfTheBooks) {
         this.id = id;
         this.theRestOfTheBooks = theRestOfTheBooks;
-        this.book = book;
     }
-    
 }

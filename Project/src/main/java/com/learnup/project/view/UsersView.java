@@ -11,10 +11,10 @@ public class UsersView {
     
     private Long id;
     
-    private RoleFromUserView role;
+    private RoleView role;
     
     private String loginName, email, hashPassword;
     
-    private BuyersFromUserView buyer;
+    private BuyersView buyer;
     
 }

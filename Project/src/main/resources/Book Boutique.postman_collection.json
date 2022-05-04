@@ -1,10 +1,415 @@
 {
 	"info": {
-		"_postman_id": "96aa4dc7-526d-4c99-9aca-c5f008bd2cbc",
+		"_postman_id": "94cbe2f1-e13b-4c2d-bf89-839feeb4f0d3",
 		"name": "Book Boutique",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "everything is fine",
+					"item": [
+						{
+							"name": "Get All Role",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/role",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"role"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Role by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/role/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"role",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"role\": \"Admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/role",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"role"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Role",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/role/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"role",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Role",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"role\": \"Kto-to\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/role/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"role",
+										"1"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "everything is fine",
+					"item": [
+						{
+							"name": "Save User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"role\": {\r\n        \"role\": \"User\"\r\n        },\r\n    \"loginName\": \"Dmiper\",\r\n    \"email\": \"qwerty@mail.ochko\",\r\n    \"hashPassword\": \"qwerty\",\r\n    \"buyer\": {\r\n        \"dateOfBirth\": \"2020-03-16\",\r\n        \"dateRegistration\": \"2022-04-15\",\r\n        \"firstName\": \"Dmi\",\r\n        \"lastName\": \"Per\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"role\": {\r\n        \"id\": 1,\r\n        \"role\": \"User\"\r\n    },\r\n    \"loginName\": \"Dmiper\",\r\n    \"email\": \"qwerty@mail.ochko\",\r\n    \"hashPassword\": \"qwerty777\",\r\n    \"buyer\": {\r\n        \"id\": 1,\r\n        \"dateOfBirth\": \"1996-09-23\",\r\n        \"dateRegistration\": \"2022-05-03\",\r\n        \"firstName\": \"Dmi\",\r\n        \"lastName\": \"Per\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/users/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/users/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete User",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/users/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Buyers",
+			"item": [
+				{
+					"name": "everything is fine",
+					"item": [
+						{
+							"name": "Not needed but works",
+							"item": [
+								{
+									"name": "Save Buyer",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/book-boutique/buyers",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"book-boutique",
+												"buyers"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Buyer",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/book-boutique/buyers/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"book-boutique",
+												"buyers",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get All Buyers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/buyers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"buyers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Buyer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"dateOfBirth\": \"1996-09-23\",\r\n    \"dateRegistration\": \"2022-05-03\",\r\n    \"firstName\": \"Dmitriy\",\r\n    \"lastName\": \"Pervushin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/buyers/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"buyers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Buyer by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/buyers/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"buyers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
 		{
 			"name": "Authors",
 			"item": [
@@ -169,6 +574,35 @@
 					"name": "everything is fine",
 					"item": [
 						{
+							"name": "Save Book",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"title\": \"grine too\",\r\n        \"yearOfPublication\": \"2010-01-10\",\r\n        \"numberOfPages\": 253,\r\n        \"price\": 635,\r\n        \"author\":{\r\n            \"fullName\": \"Stephen King\"\r\n        },\r\n        \"bookWarehouse\": {\r\n            \"theRestOfTheBooks\": 200\r\n        }\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/books",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"books"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Get All Books",
 							"request": {
 								"method": "GET",
@@ -183,6 +617,36 @@
 									"path": [
 										"book-boutique",
 										"books"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Book",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"numberOfPages\": 253,\r\n    \"price\": 935,\r\n    \"title\": \"grine too\",\r\n    \"author\": {\r\n        \"id\": 3,\r\n        \"fullName\": \"Stephen King\"\r\n    },\r\n    \"yearOfPublication\": \"2010-01-10\",\r\n    \"bookWarehouse\": {\r\n        \"id\": 1,\r\n        \"theRestOfTheBooks\": 200\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/books/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"books",
+										"1"
 									]
 								}
 							},
@@ -208,88 +672,29 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Delete Book",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/books/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"books",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
-				},
-				{
-					"name": "Save Book",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n        \"title\": \"grine too\",\r\n        \"yearOfPublication\": \"2010-01-10\",\r\n        \"numberOfPages\": 253,\r\n        \"price\": 635\r\n    }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/books",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"books"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Save Book",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/books/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"books",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Book",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/books/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"books",
-								"1"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -299,6 +704,61 @@
 				{
 					"name": "everything is fine",
 					"item": [
+						{
+							"name": "Not needed but works",
+							"item": [
+								{
+									"name": "Save BookWarehouse",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/book-boutique/book-warehouse",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"book-boutique",
+												"book-warehouse"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete BookWarehouse",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/book-boutique/book-warehouse/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"book-boutique",
+												"book-warehouse",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
 						{
 							"name": "Get All BookWarehouse",
 							"request": {
@@ -339,95 +799,23 @@
 								}
 							},
 							"response": []
-						}
-					]
-				},
-				{
-					"name": "Save BookWarehouse",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/book-warehouse",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"book-warehouse"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete BookWarehouse",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/book-warehouse/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"book-warehouse",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update BookWarehouse",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/book-warehouse/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"book-warehouse",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Buyers",
-			"item": [
-				{
-					"name": "everything is fine",
-					"item": [
 						{
-							"name": "Get All Buyers",
+							"name": "Update BookWarehouse",
 							"request": {
-								"method": "GET",
+								"method": "PUT",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"theRestOfTheBooks\": 197\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "http://localhost:8080/book-boutique/buyers",
+									"raw": "http://localhost:8080/book-boutique/book-warehouse/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -435,27 +823,7 @@
 									"port": "8080",
 									"path": [
 										"book-boutique",
-										"buyers"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Buyer by id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/book-boutique/buyers/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"book-boutique",
-										"buyers",
+										"book-warehouse",
 										"1"
 									]
 								}
@@ -463,86 +831,6 @@
 							"response": []
 						}
 					]
-				},
-				{
-					"name": "Save Buyer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/buyers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"buyers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Buyer",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/buyers/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"buyers",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Buyer",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/buyers/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"buyers",
-								"1"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -552,6 +840,35 @@
 				{
 					"name": "everything is fine",
 					"item": [
+						{
+							"name": "Save OrderDetail",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"book\": {\r\n        \"title\": \"grine too\"\r\n    },\r\n    \"quantity\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/order-details",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"order-details"
+									]
+								}
+							},
+							"response": []
+						},
 						{
 							"name": "Get All OrderDetails",
 							"request": {
@@ -592,88 +909,59 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Update OrderDetail",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"quantity\": 2,\r\n    \"price\": 635,\r\n    \"book\": {\r\n        \"id\": 1,\r\n        \"numberOfPages\": 635,\r\n        \"price\": 253,\r\n        \"title\": \"grine too\",\r\n        \"author\": {\r\n            \"id\": 3,\r\n            \"fullName\": \"Stephen King\"\r\n        },\r\n        \"yearOfPublication\": \"2010-01-10\",\r\n        \"bookWarehouse\": {\r\n            \"id\": 1,\r\n            \"theRestOfTheBooks\": 200\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/order-details/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"order-details",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete OrderDetail",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/book-boutique/order-details/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"book-boutique",
+										"order-details",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
-				},
-				{
-					"name": "Save OrderDetail",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/order-details",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"order-details"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete OrderDetail",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/order-details/{id}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"order-details",
-								"{id}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update OrderDetail",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/order-details/{id}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"order-details",
-								"{id}"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -683,6 +971,62 @@
 				{
 					"name": "everything is fine",
 					"item": [
+						{
+							"name": "Not needed but works",
+							"item": [
+								{
+									"name": "Update Order",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/book-boutique/orders/{id}",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"book-boutique",
+												"orders",
+												"{id}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Dalete Order",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/book-boutique/orders/{id}",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"book-boutique",
+												"orders",
+												"{id}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
 						{
 							"name": "Get All Orders",
 							"request": {
@@ -723,146 +1067,15 @@
 								}
 							},
 							"response": []
-						}
-					]
-				},
-				{
-					"name": "Save Order",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/orders",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Dalete Order",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/orders/{id}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"orders",
-								"{id}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Order",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/orders/{id}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"orders",
-								"{id}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Role",
-			"item": [
-				{
-					"name": "everything is fine",
-					"item": [
-						{
-							"name": "Get All Role",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/book-boutique/role",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"book-boutique",
-										"role"
-									]
-								}
-							},
-							"response": []
 						},
 						{
-							"name": "Get Role by id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/book-boutique/role/3",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"book-boutique",
-										"role",
-										"3"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Save Role",
+							"name": "Save Order",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"role\": \"Admin\"\r\n}",
+									"raw": "{\r\n    \"orderDetails\": [\r\n        {\r\n            \"id\": 1\r\n        }\r\n    ],\r\n    \"buyer\":{\r\n        \"id\": 1\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -870,7 +1083,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/book-boutique/role",
+									"raw": "http://localhost:8080/book-boutique/orders",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -878,202 +1091,13 @@
 									"port": "8080",
 									"path": [
 										"book-boutique",
-										"role"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Role",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/book-boutique/role/2",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"book-boutique",
-										"role",
-										"2"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update Role",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"id\": 1,\r\n    \"role\": \"Kto-to\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/book-boutique/role/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"book-boutique",
-										"role",
-										"1"
-									],
-									"query": [
-										{
-											"key": "",
-											"value": null,
-											"disabled": true
-										}
+										"orders"
 									]
 								}
 							},
 							"response": []
 						}
 					]
-				}
-			]
-		},
-		{
-			"name": "Users",
-			"item": [
-				{
-					"name": "everything is fine",
-					"item": [
-						{
-							"name": "Get All Users",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/book-boutique/users",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"book-boutique",
-										"users"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get User by id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/book-boutique/users/{id}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"book-boutique",
-										"users",
-										"{id}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Save User",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"loginName\": \"Dmiper\",\r\n    \"email\": \"qwerty@mail.ochko\",\r\n    \"hashPassword\": \"qwerty\",\r\n    \"buyer\":{\r\n        \"firstName\": \"Dmi\",\r\n        \"lastName\": \"Per\",\r\n        \"dateOfBirth\": \"2020-03-16\",\r\n        \"dateRegistration\": \"2022-04-15\"\r\n    },\r\n    \"role\": {\r\n        \"role\": \"User\"\r\n        }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete User",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/users/{id}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"users",
-								"{id}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update User",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/book-boutique/users/{id}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"book-boutique",
-								"users",
-								"{id}"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		}

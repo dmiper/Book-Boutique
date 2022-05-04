@@ -4,6 +4,7 @@ import com.learnup.project.dao.entity.Authors;
 import com.learnup.project.dao.entity.BookWarehouse;
 import com.learnup.project.dao.entity.Books;
 import com.learnup.project.dao.filter.BooksFilter;
+import com.learnup.project.service.AuthorsService;
 import com.learnup.project.service.BooksService;
 import com.learnup.project.view.BooksView;
 import com.learnup.project.view.mapper.BooksViewMapper;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 public class BooksController {
     
     private final BooksService booksService;
+    private final AuthorsService authorsService;
     private final BooksViewMapper booksViewMapper;
     
     @GetMapping
@@ -34,7 +36,7 @@ public class BooksController {
             @RequestParam(value = "price", required = false) Long price,
             @RequestParam(value = "bookWarehouse", required = false) BookWarehouse bookWarehouse
     ) {
-        return booksService.getAllBooks(new BooksFilter(title, author, yearOfPublication, numberOfPages, price, bookWarehouse))
+        return booksService.getAllBooks(new BooksFilter(title, yearOfPublication, numberOfPages, price, author, bookWarehouse))
                 .stream()
                 .map(booksViewMapper::mapBooksToView)
                 .collect(Collectors.toList());
@@ -52,7 +54,7 @@ public class BooksController {
                     String.format("Books with id = %s already exist", booksView.getId())
             );
         }
-        Books books = booksViewMapper.mapBooksFromView(booksView);
+        Books books = booksViewMapper.mapBooksFromView(booksView, authorsService);
         Books createBook = booksService.createBook(books);
         return booksViewMapper.mapBooksToView(createBook);
     }

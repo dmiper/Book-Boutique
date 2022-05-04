@@ -24,7 +24,6 @@ public class UsersController {
     
     private final UsersService usersService;
     private final RoleService roleService;
-    
     private final UsersViewMapper usersViewMapper;
     
     @GetMapping

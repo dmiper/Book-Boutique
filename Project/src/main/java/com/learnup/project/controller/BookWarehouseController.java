@@ -1,10 +1,8 @@
 package com.learnup.project.controller;
 
 import com.learnup.project.dao.entity.BookWarehouse;
-import com.learnup.project.dao.entity.Books;
 import com.learnup.project.dao.filter.BookWarehouseFilter;
 import com.learnup.project.service.BookWarehouseService;
-import com.learnup.project.service.BooksService;
 import com.learnup.project.view.BookWarehouseView;
 import com.learnup.project.view.mapper.BookWarehouseViewMapper;
 import lombok.AllArgsConstructor;
@@ -22,16 +20,13 @@ import java.util.stream.Collectors;
 public class BookWarehouseController {
     
     private final BookWarehouseService bookWarehouseService;
-    private final BooksService booksService;
-    
     private final BookWarehouseViewMapper bookWarehouseViewMapper;
     
     @GetMapping
     public List<BookWarehouseView> getBookWarehouse(
-            @RequestParam(value = "book", required = false) Books book,
             @RequestParam(value = "theRestOfTheBooks", required = false) Long theRestOfTheBooks
     ) {
-        return bookWarehouseService.getAllBookWarehouse(new BookWarehouseFilter(book, theRestOfTheBooks))
+        return bookWarehouseService.getAllBookWarehouse(new BookWarehouseFilter(theRestOfTheBooks))
                 .stream()
                 .map(bookWarehouseViewMapper::mapBookWarehouseToView)
                 .collect(Collectors.toList());
@@ -49,7 +44,7 @@ public class BookWarehouseController {
                     String.format("BookWarehouse with id = %s already exist", bookWarehouseView.getId())
             );
         }
-        BookWarehouse bookWarehouse = bookWarehouseViewMapper.mapBookWarehouseFromView(bookWarehouseView, booksService);
+        BookWarehouse bookWarehouse = bookWarehouseViewMapper.mapBookWarehouseFromView(bookWarehouseView);
         BookWarehouse createBookWarehouse = bookWarehouseService.createBookWarehouse(bookWarehouse);
         return bookWarehouseViewMapper.mapBookWarehouseToView(createBookWarehouse);
     }

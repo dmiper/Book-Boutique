@@ -9,6 +9,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Заказ - ид покупателя, ид заказа, сумма покупки
@@ -28,11 +29,14 @@ public class Orders implements Serializable {
     @Column(nullable = false)
     private Long purchaseAmount;
     
+    @JoinColumn
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Buyers buyer;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private List<OrderDetails> orderDetails;
     
-    @OneToOne
-    private OrderDetails orderDetails;
+    @JoinColumn
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Buyers buyers;
     
 }

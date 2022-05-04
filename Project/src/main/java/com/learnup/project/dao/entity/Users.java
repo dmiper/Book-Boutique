@@ -9,6 +9,9 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
+/**
+ * Пользователь - ид, ид роли, логин, пароль, емейл, пользователь
+ */
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -22,17 +25,20 @@ public class Users {
 
     @JoinColumn
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Role role;
     
     @Column(nullable = false, unique = true)
-    private String loginName, hashPassword;
+    private String loginName;
+    
+    @Column(nullable = false)
+    private String hashPassword;
     
     @Email
     @Column(nullable = false, unique = true)
     private String email;
     
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Buyers buyer;
     
 }

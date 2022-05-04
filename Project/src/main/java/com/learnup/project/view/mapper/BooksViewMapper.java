@@ -1,18 +1,18 @@
 package com.learnup.project.view.mapper;
 
-import com.learnup.project.dao.entity.Authors;
 import com.learnup.project.dao.entity.BookWarehouse;
 import com.learnup.project.dao.entity.Books;
-import com.learnup.project.view.AuthorsFromBookView;
-import com.learnup.project.view.BookWarehouseFromBookView;
+import com.learnup.project.service.AuthorsService;
+import com.learnup.project.view.AuthorsView;
+import com.learnup.project.view.BookWarehouseView;
 import com.learnup.project.view.BooksView;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@AllArgsConstructor
 @Component
 public class BooksViewMapper {
+    
     
     public BooksView mapBooksToView(Books books) {
         BooksView booksView = new BooksView();
@@ -22,12 +22,12 @@ public class BooksViewMapper {
         booksView.setNumberOfPages(books.getNumberOfPages());
         booksView.setYearOfPublication(books.getYearOfPublication());
         booksView.setAuthor(
-                new AuthorsFromBookView(
+                new AuthorsView(
                         books.getAuthor().getId(),
                         books.getAuthor().getFullName()
                 ));
         booksView.setBookWarehouse(
-                new BookWarehouseFromBookView(
+                new BookWarehouseView(
                         books.getBookWarehouse().getId(),
                         books.getBookWarehouse().getTheRestOfTheBooks()
                 )
@@ -35,24 +35,17 @@ public class BooksViewMapper {
         return booksView;
     }
     
-    public Books mapBooksFromView(BooksView booksView) {
+    public Books mapBooksFromView(BooksView booksView, AuthorsService authorsService) {
         Books books = new Books();
         books.setId(booksView.getId());
         books.setTitle(booksView.getTitle());
         books.setPrice(booksView.getPrice());
         books.setNumberOfPages(booksView.getNumberOfPages());
         books.setYearOfPublication(booksView.getYearOfPublication());
-        List<Books> booksList = new ArrayList<>();
-        booksList.add(books);
-        books.setAuthor(
-                new Authors(
-                        booksView.getAuthor().getId(),
-                        booksView.getAuthor().getFullName(),
-                        booksList));
+        books.setAuthor(authorsService.getAuthorByFullName(booksView.getAuthor().getFullName()));
         books.setBookWarehouse(
                 new BookWarehouse(
                         booksView.getBookWarehouse().getId(),
-                        books,
                         booksView.getBookWarehouse().getTheRestOfTheBooks()
                 ));
         return books;

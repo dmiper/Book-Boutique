@@ -1,7 +1,6 @@
 package com.learnup.project.controller;
 
 import com.learnup.project.dao.entity.Authors;
-import com.learnup.project.dao.entity.Books;
 import com.learnup.project.dao.filter.AuthorsFilter;
 import com.learnup.project.service.AuthorsService;
 import com.learnup.project.view.AuthorsView;
@@ -13,7 +12,6 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -25,14 +23,13 @@ public class AuthorsController {
     private final AuthorsViewMapper authorsViewMapper;
     
     @GetMapping
-    public Set<AuthorsView> getAuthors(
-            @RequestParam(value = "fullName", required = false) String fullName,
-            @RequestParam(value = "book", required = false) List<Books> book
+    public List<AuthorsView> getAuthors(
+            @RequestParam(value = "fullName", required = false) String fullName
     ) {
-        return authorsService.getAllAuthors(new AuthorsFilter(fullName, book))
+        return authorsService.getAllAuthors(new AuthorsFilter(fullName))
                 .stream()
                 .map(authorsViewMapper::mapAuthorsToView)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
     
     @GetMapping("/{id}")

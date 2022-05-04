@@ -1,7 +1,6 @@
 package com.learnup.project.controller;
 
 import com.learnup.project.dao.entity.Role;
-import com.learnup.project.dao.entity.Users;
 import com.learnup.project.dao.filter.RoleFilter;
 import com.learnup.project.service.RoleService;
 import com.learnup.project.view.RoleView;
@@ -26,10 +25,9 @@ public class RoleController {
     
     @GetMapping
     public List<RoleView> getRole(
-            @RequestParam(value = "role", required = false) String role,
-            @RequestParam(value = "users", required = false) List<Users> users
+            @RequestParam(value = "role", required = false) String role
     ) {
-        return roleService.getAllRole(new RoleFilter(role, users))
+        return roleService.getAllRole(new RoleFilter(role))
                 .stream()
                 .map(roleViewMapper::mapUsersRoleToView)
                 .collect(Collectors.toList());
@@ -48,6 +46,11 @@ public class RoleController {
             );
         }
         Role role = roleViewMapper.mapUsersRoleFromView(roleView);
+        if (roleService.getRoleByRole(role.getRole()) != null) {
+            throw new EntityExistsException(
+                    String.format("Role with this name = %s already exist", roleView.getRole())
+            );
+        }
         Role createRole = roleService.createRole(role);
         return roleViewMapper.mapUsersRoleToView(createRole);
     }

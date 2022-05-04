@@ -11,6 +11,4 @@ public class BookWarehouseView {
     
     private Long id, theRestOfTheBooks;
     
-    private BooksFromBookWarehouseView book;
-    
 }

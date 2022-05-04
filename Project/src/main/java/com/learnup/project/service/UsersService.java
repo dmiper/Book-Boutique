@@ -1,9 +1,7 @@
 package com.learnup.project.service;
 
-import com.learnup.project.dao.entity.Role;
 import com.learnup.project.dao.entity.Users;
 import com.learnup.project.dao.filter.UsersFilter;
-import com.learnup.project.dao.repository.RoleRepository;
 import com.learnup.project.dao.repository.UsersRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.OptimisticLockException;
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.learnup.project.dao.specification.UsersSpecification.byUsersFilter;
@@ -22,7 +21,6 @@ import static com.learnup.project.dao.specification.UsersSpecification.byUsersFi
 public class UsersService {
     
     private final UsersRepository usersRepository;
-    private final RoleRepository roleRepository;
     
     public List<Users> getAllUsers(UsersFilter usersFilter) {
         Specification<Users> specification = Specification.where(byUsersFilter(usersFilter));
@@ -30,23 +28,17 @@ public class UsersService {
         return usersRepository.findAll(specification);
     }
     
+    @Transactional
     public Users createUser(Users users) {
-        Users exist = usersRepository.findByLoginName(users.getLoginName());
+        Users exist;
+        exist = usersRepository.findByLoginName(users.getLoginName());
         if (exist != null) {
-            throw new EntityExistsException("login with login " + users.getLoginName() + " already exist");
+            throw new EntityExistsException("User with Login " + users.getLoginName() + " already exist");
         }
-    
-        //String password = passwordEncoder.encode(user.getPassword());
-        //TODO: Alo???
-        /*
-        users.setHashPassword(users.getHashPassword());
-    
-        String roles = users.getRole().getRole();
-    
-        Role existRoles = roleRepository.findByRole(roles);
-        users.setRole(existRoles);
-        existRoles.setUsers(List.of(users));
-        */
+        exist = usersRepository.findByEmail(users.getEmail());
+        if (exist != null) {
+            throw new EntityExistsException("User with Email " + users.getEmail() + " already exist");
+        }
         log.info("CreateUser: {}", users);
         return usersRepository.save(users);
     }
@@ -67,7 +59,7 @@ public class UsersService {
             log.info("UpdateUser: {}", users.toString());
             return usersRepository.save(users);
         } catch (OptimisticLockException e) {
-            log.warn("Optimistic lock exception for User {}", users.getId());
+            log.warn("Optimistic lock exception for User id {}", users.getId());
             throw e;
         }
     }

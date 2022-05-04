@@ -14,10 +14,6 @@ public class OrderDetailsSpecification {
             
             Predicate predicate = cb.isNotNull(root.get("id"));
             
-            if (orderDetailsFilter.getOrder() != null) {
-                predicate = cb.and(predicate, cb.like(root.get("order"), "%" + orderDetailsFilter.getOrder() + "%"));
-            }
-            
             if (orderDetailsFilter.getBook() != null) {
                 predicate = cb.and(predicate, cb.like(root.get("book"), "%" + orderDetailsFilter.getBook() + "%"));
             }

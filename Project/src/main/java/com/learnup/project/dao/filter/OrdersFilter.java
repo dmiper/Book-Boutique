@@ -5,6 +5,8 @@ import com.learnup.project.dao.entity.OrderDetails;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 public class OrdersFilter {
@@ -13,6 +15,6 @@ public class OrdersFilter {
     
     private final Buyers buyer;
     
-    private final OrderDetails orderDetails;
+    private final List<OrderDetails> orderDetails;
     
 }

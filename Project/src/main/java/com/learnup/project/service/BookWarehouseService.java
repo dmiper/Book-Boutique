@@ -34,8 +34,13 @@ public class BookWarehouseService {
     }
     
     public BookWarehouse getBookWarehouseById(Long id) {
+        try {
         log.info("Request getBookWarehouseById: {}", id);
         return bookWarehouseRepository.getBookWarehouseById(id);
+        } catch (OptimisticLockException e) {
+            log.warn("Optimistic lock exception for BookWarehouse id {}", id);
+            throw e;
+        }
     }
     
     public Boolean deleteBookWarehouse(Long id) {

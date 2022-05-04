@@ -15,10 +15,10 @@ public class BooksView {
     
     private String title;
     
-    private AuthorsFromBookView author;
+    private AuthorsView author;
     
     private LocalDate yearOfPublication;
     
-    private BookWarehouseFromBookView bookWarehouse;
+    private BookWarehouseView bookWarehouse;
     
 }

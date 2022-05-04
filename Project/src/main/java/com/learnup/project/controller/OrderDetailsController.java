@@ -2,11 +2,9 @@ package com.learnup.project.controller;
 
 import com.learnup.project.dao.entity.Books;
 import com.learnup.project.dao.entity.OrderDetails;
-import com.learnup.project.dao.entity.Orders;
 import com.learnup.project.dao.filter.OrderDetailsFilter;
 import com.learnup.project.service.BooksService;
 import com.learnup.project.service.OrderDetailsService;
-import com.learnup.project.service.OrdersService;
 import com.learnup.project.view.OrderDetailsView;
 import com.learnup.project.view.mapper.OrderDetailsViewMapper;
 import lombok.AllArgsConstructor;
@@ -25,18 +23,15 @@ public class OrderDetailsController {
     
     private final OrderDetailsService orderDetailsService;
     private final BooksService booksService;
-    private final OrdersService ordersService;
-    
     private final OrderDetailsViewMapper orderDetailsViewMapper;
     
     @GetMapping
     public List<OrderDetailsView> getOrderDetails(
-            @RequestParam(value = "order", required = false) Orders order,
             @RequestParam(value = "book", required = false) Books book,
             @RequestParam(value = "quantity", required = false) Long quantity,
             @RequestParam(value = "price", required = false) Long price
     ) {
-        return orderDetailsService.getAllOrderDetails(new OrderDetailsFilter(order, book, quantity, price))
+        return orderDetailsService.getAllOrderDetails(new OrderDetailsFilter(book, quantity, price))
                 .stream()
                 .map(orderDetailsViewMapper::mapOrderDetailsToView)
                 .collect(Collectors.toList());
@@ -54,7 +49,7 @@ public class OrderDetailsController {
                     String.format("OrderDetails with id = %s already exist", orderDetailsView.getId())
             );
         }
-        OrderDetails orderDetails = orderDetailsViewMapper.mapOrderDetailsFromView(orderDetailsView, booksService, ordersService);
+        OrderDetails orderDetails = orderDetailsViewMapper.mapOrderDetailsFromView(orderDetailsView, booksService);
         OrderDetails createOrderDetails = orderDetailsService.createOrderDetails(orderDetails);
         return orderDetailsViewMapper.mapOrderDetailsToView(createOrderDetails);
     }

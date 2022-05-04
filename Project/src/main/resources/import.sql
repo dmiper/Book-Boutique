@@ -9,4 +9,3 @@ insert into schema.authors(full_name) values ('Gogol Nikolay Vasilievich');
 insert into schema.role(role) values ('User');
 insert into schema.role(role) values ('Admin');
 insert into schema.role(role) values ('P.V.V.');
-
