@@ -46,15 +46,15 @@ public class UsersController {
     }
     
     @PostMapping
-    public UsersView createUser(@RequestBody UsersView usersView) {
+    public Boolean createUser(@RequestBody UsersView usersView) {
         if (usersView.getId() != null) {
             throw new EntityExistsException(
                     String.format("User with id = %s already exist", usersView.getId())
             );
         }
         Users users = usersViewMapper.mapUsersFromView(usersView, roleService);
-        Users createUsers = usersService.createUser(users);
-        return usersViewMapper.mapUsersToView(createUsers);
+        usersService.createUser(users);
+        return true;
     }
     
     @PutMapping("/{id}")

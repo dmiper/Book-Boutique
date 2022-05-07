@@ -3,8 +3,10 @@ package com.learnup.project.dao.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Роль - наименование роли, ид
@@ -14,7 +16,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @Table(schema = "schema")
-public class Role /*implements GrantedAuthority*/ {
+public class Role implements GrantedAuthority {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,22 +25,22 @@ public class Role /*implements GrantedAuthority*/ {
     @Column(nullable = false, unique = true)
     private String role;
     
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Role role = (Role) o;
-        return Objects.equals(id, role.id) && Objects.equals(this.role, role.role) && Objects.equals(users, role.users);
+        Role role1 = (Role) o;
+        return Objects.equals(id, role1.id) && Objects.equals(role, role1.role);
     }
     
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(id, role);
     }
     
+    @Transient
     @Override
     public String getAuthority() {
         return role;
-    }*/
-    
+    }
 }

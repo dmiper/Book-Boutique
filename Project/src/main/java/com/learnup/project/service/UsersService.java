@@ -1,11 +1,17 @@
 package com.learnup.project.service;
 
+import antlr.BaseAST;
+import com.learnup.project.dao.entity.Role;
 import com.learnup.project.dao.entity.Users;
 import com.learnup.project.dao.filter.UsersFilter;
 import com.learnup.project.dao.repository.UsersRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
@@ -18,9 +24,10 @@ import static com.learnup.project.dao.specification.UsersSpecification.byUsersFi
 @Slf4j
 @AllArgsConstructor
 @Service
-public class UsersService {
+public class UsersService implements UserDetailsService {
     
     private final UsersRepository usersRepository;
+    private PasswordEncoder passwordEncoder;
     
     public List<Users> getAllUsers(UsersFilter usersFilter) {
         Specification<Users> specification = Specification.where(byUsersFilter(usersFilter));
@@ -28,8 +35,8 @@ public class UsersService {
         return usersRepository.findAll(specification);
     }
     
-    @Transactional
-    public Users createUser(Users users) {
+    //@Transactional
+    public void createUser(Users users) {
         Users exist;
         exist = usersRepository.findByLoginName(users.getLoginName());
         if (exist != null) {
@@ -39,8 +46,11 @@ public class UsersService {
         if (exist != null) {
             throw new EntityExistsException("User with Email " + users.getEmail() + " already exist");
         }
+        String password = passwordEncoder.encode(users.getPassword());
+        users.setHashPassword(password);
+        
         log.info("CreateUser: {}", users);
-        return usersRepository.save(users);
+        usersRepository.save(users);
     }
     
     public Users getUserById(Long id) {
@@ -64,4 +74,8 @@ public class UsersService {
         }
     }
     
+    @Override
+    public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException {
+        return usersRepository.findByLoginName(loginName);
+    }
 }

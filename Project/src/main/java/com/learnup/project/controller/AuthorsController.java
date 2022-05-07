@@ -6,6 +6,7 @@ import com.learnup.project.service.AuthorsService;
 import com.learnup.project.view.AuthorsView;
 import com.learnup.project.view.mapper.AuthorsViewMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -22,6 +23,7 @@ public class AuthorsController {
     private final AuthorsService authorsService;
     private final AuthorsViewMapper authorsViewMapper;
     
+    @Secured({"ROLE_USER"})
     @GetMapping
     public List<AuthorsView> getAuthors(
             @RequestParam(value = "fullName", required = false) String fullName
@@ -32,11 +34,13 @@ public class AuthorsController {
                 .collect(Collectors.toList());
     }
     
+    @Secured({"ROLE_USER"})
     @GetMapping("/{id}")
     public AuthorsView getAuthorById(@PathVariable("id") Long id) {
         return authorsViewMapper.mapAuthorsToView(authorsService.getAuthorById(id));
     }
     
+    @Secured({"ROLE_ADMIN"})
     @PostMapping
     public AuthorsView createAuthor(@RequestBody AuthorsView authorsView) {
         if (authorsView.getId() != null) {
@@ -49,6 +53,7 @@ public class AuthorsController {
         return authorsViewMapper.mapAuthorsToView(createAuthor);
     }
     
+    @Secured({"ROLE_ADMIN"})
     @PutMapping("/{id}")
     public AuthorsView updateAuthor(@PathVariable("id") Long id,
             @RequestBody AuthorsView authorsView) {
@@ -66,6 +71,7 @@ public class AuthorsController {
         return authorsViewMapper.mapAuthorsToView(updateAuthor);
     }
     
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public Boolean deleteAuthor(@PathVariable("id") Long id) {
         return authorsService.deleteAuthor(id);
