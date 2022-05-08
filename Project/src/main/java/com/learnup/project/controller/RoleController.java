@@ -6,6 +6,7 @@ import com.learnup.project.service.RoleService;
 import com.learnup.project.view.RoleView;
 import com.learnup.project.view.mapper.RoleViewMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -22,7 +23,8 @@ public class RoleController {
     private final RoleService roleService;
     
     private final RoleViewMapper roleViewMapper;
-    
+
+    @Secured({"ROLE_ADMIN"})
     @GetMapping
     public List<RoleView> getRole(
             @RequestParam(value = "role", required = false) String role
@@ -32,12 +34,14 @@ public class RoleController {
                 .map(roleViewMapper::mapUsersRoleToView)
                 .collect(Collectors.toList());
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/{id}")
     public RoleView getRoleById(@PathVariable("id") Long id) {
         return roleViewMapper.mapUsersRoleToView(roleService.getRoleById(id));
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @PostMapping
     public RoleView createRole(@RequestBody RoleView roleView) {
         if (roleView.getId() != null) {
@@ -54,7 +58,8 @@ public class RoleController {
         Role createRole = roleService.createRole(role);
         return roleViewMapper.mapUsersRoleToView(createRole);
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @PutMapping("/{id}")
     public RoleView updateRole(@PathVariable("id") Long id,
                                    @RequestBody RoleView roleView) {
@@ -71,7 +76,8 @@ public class RoleController {
         Role updateRole = roleService.updateRole(role);
         return roleViewMapper.mapUsersRoleToView(updateRole);
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public Boolean deleteUserRole(@PathVariable("id") Long id) {
         return roleService.deleteRole(id);

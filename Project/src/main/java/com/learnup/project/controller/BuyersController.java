@@ -6,6 +6,7 @@ import com.learnup.project.service.BuyersService;
 import com.learnup.project.view.BuyersView;
 import com.learnup.project.view.mapper.BuyersViewMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -22,7 +23,8 @@ public class BuyersController {
     
     private final BuyersService buyersService;
     private final BuyersViewMapper buyersViewMapper;
-    
+
+    @Secured({"ROLE_USER"})
     @GetMapping
     public List<BuyersView> getBuyers(
             @RequestParam(value = "dateOfBirth", required = false) LocalDate dateOfBirth,
@@ -35,12 +37,14 @@ public class BuyersController {
                 .map(buyersViewMapper::mapBuyersToView)
                 .collect(Collectors.toList());
     }
-    
+
+    @Secured({"ROLE_USER"})
     @GetMapping("/{id}")
     public BuyersView getBuyerById(@PathVariable("id") Long id) {
         return buyersViewMapper.mapBuyersToView(buyersService.getBuyersById(id));
     }
-    
+
+    @Secured({"ROLE_USER"})
     @PostMapping
     public BuyersView createBuyer(@RequestBody BuyersView buyersView) {
         if (buyersView.getId() != null) {
@@ -52,7 +56,8 @@ public class BuyersController {
         Buyers createBuyers = buyersService.createBuyer(buyers);
         return buyersViewMapper.mapBuyersToView(createBuyers);
     }
-    
+
+    @Secured({"ROLE_USER"})
     @PutMapping("/{id}")
     public BuyersView updateBuyer(@PathVariable("id") Long id,
                                     @RequestBody BuyersView buyersView) {
@@ -78,7 +83,8 @@ public class BuyersController {
         Buyers updateBuyer = buyersService.updateBuyer(buyers);
         return buyersViewMapper.mapBuyersToView(updateBuyer);
     }
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public Boolean deleteBuyer(@PathVariable("id") Long id) {
         return buyersService.deleteBuyer(id);

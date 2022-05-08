@@ -23,7 +23,7 @@ public class AuthorsController {
     private final AuthorsService authorsService;
     private final AuthorsViewMapper authorsViewMapper;
     
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping
     public List<AuthorsView> getAuthors(
             @RequestParam(value = "fullName", required = false) String fullName
@@ -34,7 +34,7 @@ public class AuthorsController {
                 .collect(Collectors.toList());
     }
     
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping("/{id}")
     public AuthorsView getAuthorById(@PathVariable("id") Long id) {
         return authorsViewMapper.mapAuthorsToView(authorsService.getAuthorById(id));

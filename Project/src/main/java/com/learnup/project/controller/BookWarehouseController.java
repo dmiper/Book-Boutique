@@ -6,6 +6,7 @@ import com.learnup.project.service.BookWarehouseService;
 import com.learnup.project.view.BookWarehouseView;
 import com.learnup.project.view.mapper.BookWarehouseViewMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -21,7 +22,8 @@ public class BookWarehouseController {
     
     private final BookWarehouseService bookWarehouseService;
     private final BookWarehouseViewMapper bookWarehouseViewMapper;
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping
     public List<BookWarehouseView> getBookWarehouse(
             @RequestParam(value = "theRestOfTheBooks", required = false) Long theRestOfTheBooks
@@ -31,12 +33,14 @@ public class BookWarehouseController {
                 .map(bookWarehouseViewMapper::mapBookWarehouseToView)
                 .collect(Collectors.toList());
     }
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping("/{id}")
     public BookWarehouseView getBookWarehouseById(@PathVariable("id") Long id) {
         return bookWarehouseViewMapper.mapBookWarehouseToView(bookWarehouseService.getBookWarehouseById(id));
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @PostMapping
     public BookWarehouseView createBookWarehouse(@RequestBody BookWarehouseView bookWarehouseView) {
         if (bookWarehouseView.getId() != null) {
@@ -48,7 +52,8 @@ public class BookWarehouseController {
         BookWarehouse createBookWarehouse = bookWarehouseService.createBookWarehouse(bookWarehouse);
         return bookWarehouseViewMapper.mapBookWarehouseToView(createBookWarehouse);
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @PutMapping("/{id}")
     public BookWarehouseView updateBookWarehouse(@PathVariable("id") Long id,
                                                  @RequestBody BookWarehouseView bookWarehouseView) {
@@ -65,7 +70,8 @@ public class BookWarehouseController {
         BookWarehouse updateBookWarehouse = bookWarehouseService.updateBookWarehouse(bookWarehouse);
         return bookWarehouseViewMapper.mapBookWarehouseToView(updateBookWarehouse);
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public Boolean deleteBookWarehouse(@PathVariable("id") Long id) {
         return bookWarehouseService.deleteBookWarehouse(id);

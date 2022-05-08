@@ -9,6 +9,7 @@ import com.learnup.project.service.BooksService;
 import com.learnup.project.view.BooksView;
 import com.learnup.project.view.mapper.BooksViewMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -26,7 +27,8 @@ public class BooksController {
     private final BooksService booksService;
     private final AuthorsService authorsService;
     private final BooksViewMapper booksViewMapper;
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping
     public List<BooksView> getBooks(
             @RequestParam(value = "title", required = false) String title,
@@ -41,12 +43,14 @@ public class BooksController {
                 .map(booksViewMapper::mapBooksToView)
                 .collect(Collectors.toList());
     }
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping("/{id}")
     public BooksView getBookById(@PathVariable("id") Long id) {
         return booksViewMapper.mapBooksToView(booksService.getBookById(id));
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @PostMapping
     public BooksView createBook(@RequestBody BooksView booksView) {
         if (booksView.getId() != null) {
@@ -58,7 +62,8 @@ public class BooksController {
         Books createBook = booksService.createBook(books);
         return booksViewMapper.mapBooksToView(createBook);
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @PutMapping("/{id}")
     public BooksView updateBook(@PathVariable("id") Long id,
                                 @RequestBody BooksView authorsView) {
@@ -84,7 +89,8 @@ public class BooksController {
         Books updateBook = booksService.updateBook(authors);
         return booksViewMapper.mapBooksToView(updateBook);
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public Boolean deleteBook(@PathVariable("id") Long id) {
         return booksService.deleteBook(id);

@@ -12,6 +12,7 @@ import com.learnup.project.service.OrdersService;
 import com.learnup.project.view.OrdersView;
 import com.learnup.project.view.mapper.OrdersViewMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -30,7 +31,8 @@ public class OrdersController {
     private final BuyersService buyersService;
     private final BookWarehouseService bookWarehouseService;
     private final OrdersViewMapper ordersViewMapper;
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping
     public List<OrdersView> getOrders(
             @RequestParam(value = "purchaseAmount", required = false) Long purchaseAmount,
@@ -42,12 +44,14 @@ public class OrdersController {
                 .map(ordersViewMapper::mapOrdersToView)
                 .collect(Collectors.toList());
     }
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping("/{id}")
     public OrdersView getOrderById(@PathVariable("id") Long id) {
         return ordersViewMapper.mapOrdersToView(ordersService.getOrderById(id));
     }
-    
+
+    @Secured({"ROLE_USER"})
     @PostMapping
     public OrdersView createOrder(@RequestBody OrdersView ordersView) {
         if (ordersView.getId() != null) {
@@ -64,7 +68,8 @@ public class OrdersController {
         bookWarehouseService.updateBookWarehouse(bookWarehouse);
         return ordersViewMapper.mapOrdersToView(ordersService.getOrderById(createOrders.getId()));
     }
-    
+
+    @Secured({"ROLE_USER"})
     @PutMapping("/{id}")
     public OrdersView updateOrder(@PathVariable("id") Long id,
                                    @RequestBody OrdersView authorsView) {
@@ -81,7 +86,8 @@ public class OrdersController {
         Orders updateOrder = ordersService.updateOrder(authors);
         return ordersViewMapper.mapOrdersToView(updateOrder);
     }
-    
+
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public Boolean deleteOrder(@PathVariable("id") Long id) {
         return ordersService.deleteOrder(id);

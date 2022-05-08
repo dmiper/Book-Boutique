@@ -9,6 +9,7 @@ import com.learnup.project.service.UsersService;
 import com.learnup.project.view.UsersView;
 import com.learnup.project.view.mapper.UsersViewMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -25,7 +26,8 @@ public class UsersController {
     private final UsersService usersService;
     private final RoleService roleService;
     private final UsersViewMapper usersViewMapper;
-    
+
+    @Secured({"ROLE_ADMIN"})
     @GetMapping
     public List<UsersView> getUsers(
             @RequestParam(value = "role", required = false) Role role,
@@ -39,12 +41,14 @@ public class UsersController {
                 .map(usersViewMapper::mapUsersToView)
                 .collect(Collectors.toList());
     }
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping("/{id}")
     public UsersView getUserById(@PathVariable("id") Long id) {
         return usersViewMapper.mapUsersToView(usersService.getUserById(id));
     }
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @PostMapping
     public Boolean createUser(@RequestBody UsersView usersView) {
         if (usersView.getId() != null) {
@@ -56,7 +60,8 @@ public class UsersController {
         usersService.createUser(users);
         return true;
     }
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @PutMapping("/{id}")
     public UsersView updateUser(@PathVariable("id") Long id,
                                   @RequestBody UsersView authorsView) {
@@ -79,7 +84,8 @@ public class UsersController {
         Users updateUser = usersService.updateUser(users);
         return usersViewMapper.mapUsersToView(updateUser);
     }
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public Boolean deleteAuthor(@PathVariable("id") Long id) {
         return usersService.deleteUser(id);

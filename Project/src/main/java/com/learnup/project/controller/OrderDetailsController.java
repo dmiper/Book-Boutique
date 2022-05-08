@@ -8,6 +8,7 @@ import com.learnup.project.service.OrderDetailsService;
 import com.learnup.project.view.OrderDetailsView;
 import com.learnup.project.view.mapper.OrderDetailsViewMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -24,7 +25,8 @@ public class OrderDetailsController {
     private final OrderDetailsService orderDetailsService;
     private final BooksService booksService;
     private final OrderDetailsViewMapper orderDetailsViewMapper;
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping
     public List<OrderDetailsView> getOrderDetails(
             @RequestParam(value = "book", required = false) Books book,
@@ -36,12 +38,14 @@ public class OrderDetailsController {
                 .map(orderDetailsViewMapper::mapOrderDetailsToView)
                 .collect(Collectors.toList());
     }
-    
+
+    @Secured({"ROLE_USER, ROLE_ADMIN"})
     @GetMapping("/{id}")
     public OrderDetailsView getOrderDetailById(@PathVariable("id") Long id) {
         return orderDetailsViewMapper.mapOrderDetailsToView(orderDetailsService.getOrderDetailsById(id));
     }
-    
+
+    @Secured({"ROLE_USER"})
     @PostMapping
     public OrderDetailsView createOrderDetail(@RequestBody OrderDetailsView orderDetailsView) {
         if (orderDetailsView.getId() != null) {
@@ -53,7 +57,8 @@ public class OrderDetailsController {
         OrderDetails createOrderDetails = orderDetailsService.createOrderDetails(orderDetails);
         return orderDetailsViewMapper.mapOrderDetailsToView(createOrderDetails);
     }
-    
+
+    @Secured({"ROLE_USER"})
     @PutMapping("/{id}")
     public OrderDetailsView updateOrderDetail(@PathVariable("id") Long id,
                                               @RequestBody OrderDetailsView orderDetailsView) {
@@ -73,7 +78,8 @@ public class OrderDetailsController {
         OrderDetails updateAuthor = orderDetailsService.updateOrderDetail(orderDetails);
         return orderDetailsViewMapper.mapOrderDetailsToView(updateAuthor);
     }
-    
+
+    @Secured({"ROLE_USER"})
     @DeleteMapping("/{id}")
     public Boolean deleteOrderDetail(@PathVariable("id") Long id) {
         return orderDetailsService.deleteOrderDetail(id);
