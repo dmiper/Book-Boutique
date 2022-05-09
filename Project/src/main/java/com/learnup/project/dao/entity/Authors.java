@@ -23,10 +23,5 @@ public class Authors implements Serializable {
     
     @Column(nullable = false, unique = true)
     private String fullName;
-
-    public Authors(Long id, String fullName) {
-        this.id = id;
-        this.fullName = fullName;
-    }
     
 }
