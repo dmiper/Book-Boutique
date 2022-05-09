@@ -28,7 +28,7 @@ public class BooksController {
     private final AuthorsService authorsService;
     private final BooksViewMapper booksViewMapper;
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping
     public List<BooksView> getBooks(
             @RequestParam(value = "title", required = false) String title,
@@ -44,7 +44,7 @@ public class BooksController {
                 .collect(Collectors.toList());
     }
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/{id}")
     public BooksView getBookById(@PathVariable("id") Long id) {
         return booksViewMapper.mapBooksToView(booksService.getBookById(id));
@@ -90,8 +90,8 @@ public class BooksController {
         return booksViewMapper.mapBooksToView(updateBook);
     }
 
-    @Secured({"ROLE_ADMIN"})
-    @DeleteMapping("/{id}")
+        @Secured({"ROLE_ADMIN"})
+        @DeleteMapping("/{id}")
     public Boolean deleteBook(@PathVariable("id") Long id) {
         return booksService.deleteBook(id);
     }

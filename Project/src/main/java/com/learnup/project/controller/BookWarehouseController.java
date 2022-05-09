@@ -23,7 +23,7 @@ public class BookWarehouseController {
     private final BookWarehouseService bookWarehouseService;
     private final BookWarehouseViewMapper bookWarehouseViewMapper;
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping
     public List<BookWarehouseView> getBookWarehouse(
             @RequestParam(value = "theRestOfTheBooks", required = false) Long theRestOfTheBooks
@@ -34,7 +34,7 @@ public class BookWarehouseController {
                 .collect(Collectors.toList());
     }
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/{id}")
     public BookWarehouseView getBookWarehouseById(@PathVariable("id") Long id) {
         return bookWarehouseViewMapper.mapBookWarehouseToView(bookWarehouseService.getBookWarehouseById(id));
@@ -71,8 +71,8 @@ public class BookWarehouseController {
         return bookWarehouseViewMapper.mapBookWarehouseToView(updateBookWarehouse);
     }
 
-    @Secured({"ROLE_ADMIN"})
-    @DeleteMapping("/{id}")
+        @Secured({"ROLE_ADMIN"})
+        @DeleteMapping("/{id}")
     public Boolean deleteBookWarehouse(@PathVariable("id") Long id) {
         return bookWarehouseService.deleteBookWarehouse(id);
     }

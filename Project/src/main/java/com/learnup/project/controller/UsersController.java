@@ -42,13 +42,13 @@ public class UsersController {
                 .collect(Collectors.toList());
     }
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/{id}")
     public UsersView getUserById(@PathVariable("id") Long id) {
         return usersViewMapper.mapUsersToView(usersService.getUserById(id));
     }
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+
     @PostMapping
     public Boolean createUser(@RequestBody UsersView usersView) {
         if (usersView.getId() != null) {
@@ -61,10 +61,10 @@ public class UsersController {
         return true;
     }
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @PutMapping("/{id}")
     public UsersView updateUser(@PathVariable("id") Long id,
-                                  @RequestBody UsersView authorsView) {
+                                @RequestBody UsersView authorsView) {
         if (authorsView.getId() == null) {
             throw new EntityNotFoundException("Try to found null entity");
         }

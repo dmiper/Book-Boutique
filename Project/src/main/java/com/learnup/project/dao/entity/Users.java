@@ -15,22 +15,22 @@ import java.util.Collections;
 /**
  * Пользователь - ид, ид роли, логин, пароль, емейл, пользователь
  */
+@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Entity
 @Table(schema = "schema")
 public class Users implements UserDetails {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @JoinColumn
     @Fetch(FetchMode.JOIN)
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Role role;
-    
+
     @Column(nullable = false, unique = true)
     private String loginName;
     
@@ -84,5 +84,17 @@ public class Users implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", role=" + role +
+                ", loginName='" + loginName + '\'' +
+                ", hashPassword='" + hashPassword + '\'' +
+                ", email='" + email + '\'' +
+                ", buyer=" + buyer +
+                '}';
     }
 }

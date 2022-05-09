@@ -26,7 +26,7 @@ public class OrderDetailsController {
     private final BooksService booksService;
     private final OrderDetailsViewMapper orderDetailsViewMapper;
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping
     public List<OrderDetailsView> getOrderDetails(
             @RequestParam(value = "book", required = false) Books book,
@@ -39,7 +39,7 @@ public class OrderDetailsController {
                 .collect(Collectors.toList());
     }
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/{id}")
     public OrderDetailsView getOrderDetailById(@PathVariable("id") Long id) {
         return orderDetailsViewMapper.mapOrderDetailsToView(orderDetailsService.getOrderDetailsById(id));
@@ -79,10 +79,11 @@ public class OrderDetailsController {
         return orderDetailsViewMapper.mapOrderDetailsToView(updateAuthor);
     }
 
+
     @Secured({"ROLE_USER"})
     @DeleteMapping("/{id}")
     public Boolean deleteOrderDetail(@PathVariable("id") Long id) {
         return orderDetailsService.deleteOrderDetail(id);
     }
-    
+
 }

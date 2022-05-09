@@ -17,14 +17,14 @@ import java.util.Objects;
 @Entity
 @Table(schema = "schema")
 public class Role implements GrantedAuthority {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false, unique = true)
     private String role;
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

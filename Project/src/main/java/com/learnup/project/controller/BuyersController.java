@@ -24,8 +24,8 @@ public class BuyersController {
     private final BuyersService buyersService;
     private final BuyersViewMapper buyersViewMapper;
 
-    @Secured({"ROLE_USER"})
-    @GetMapping
+        @Secured({"ROLE_USER"})
+        @GetMapping
     public List<BuyersView> getBuyers(
             @RequestParam(value = "dateOfBirth", required = false) LocalDate dateOfBirth,
             @RequestParam(value = "dateRegistration", required = false) LocalDate dateRegistration,
@@ -84,7 +84,7 @@ public class BuyersController {
         return buyersViewMapper.mapBuyersToView(updateBuyer);
     }
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public Boolean deleteBuyer(@PathVariable("id") Long id) {
         return buyersService.deleteBuyer(id);

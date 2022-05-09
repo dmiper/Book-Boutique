@@ -1,0 +1,9 @@
+Admin:
+    Login name: DmiperAdmin, Password: qwerty
+User:
+    Login name: Dmiper, Password: qwerty
+    Login name: Tolya, Password: qwerty
+
+Rest api:
+    OpenAPI Swagger http://localhost:8080/swagger-ui/index.html#/
+    Login http://localhost:8080/login#/

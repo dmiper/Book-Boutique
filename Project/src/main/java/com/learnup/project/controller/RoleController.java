@@ -77,8 +77,8 @@ public class RoleController {
         return roleViewMapper.mapUsersRoleToView(updateRole);
     }
 
-    @Secured({"ROLE_ADMIN"})
-    @DeleteMapping("/{id}")
+        @Secured({"ROLE_ADMIN"})
+        @DeleteMapping("/{id}")
     public Boolean deleteUserRole(@PathVariable("id") Long id) {
         return roleService.deleteRole(id);
     }

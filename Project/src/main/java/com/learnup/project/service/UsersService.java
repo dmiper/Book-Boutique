@@ -1,7 +1,5 @@
 package com.learnup.project.service;
 
-import antlr.BaseAST;
-import com.learnup.project.dao.entity.Role;
 import com.learnup.project.dao.entity.Users;
 import com.learnup.project.dao.filter.UsersFilter;
 import com.learnup.project.dao.repository.UsersRepository;
@@ -25,17 +23,17 @@ import static com.learnup.project.dao.specification.UsersSpecification.byUsersFi
 @AllArgsConstructor
 @Service
 public class UsersService implements UserDetailsService {
-    
+
     private final UsersRepository usersRepository;
     private PasswordEncoder passwordEncoder;
-    
+
     public List<Users> getAllUsers(UsersFilter usersFilter) {
         Specification<Users> specification = Specification.where(byUsersFilter(usersFilter));
         log.info("Request getAllUsers: {}", specification);
         return usersRepository.findAll(specification);
     }
-    
-    //@Transactional
+
+    @Transactional
     public void createUser(Users users) {
         Users exist;
         exist = usersRepository.findByLoginName(users.getLoginName());
@@ -46,9 +44,10 @@ public class UsersService implements UserDetailsService {
         if (exist != null) {
             throw new EntityExistsException("User with Email " + users.getEmail() + " already exist");
         }
+
         String password = passwordEncoder.encode(users.getPassword());
         users.setHashPassword(password);
-        
+
         log.info("CreateUser: {}", users);
         usersRepository.save(users);
     }

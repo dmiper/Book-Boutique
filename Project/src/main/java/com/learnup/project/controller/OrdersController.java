@@ -32,7 +32,7 @@ public class OrdersController {
     private final BookWarehouseService bookWarehouseService;
     private final OrdersViewMapper ordersViewMapper;
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping
     public List<OrdersView> getOrders(
             @RequestParam(value = "purchaseAmount", required = false) Long purchaseAmount,
@@ -45,7 +45,7 @@ public class OrdersController {
                 .collect(Collectors.toList());
     }
 
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/{id}")
     public OrdersView getOrderById(@PathVariable("id") Long id) {
         return ordersViewMapper.mapOrdersToView(ordersService.getOrderById(id));
@@ -87,8 +87,8 @@ public class OrdersController {
         return ordersViewMapper.mapOrdersToView(updateOrder);
     }
 
-    @Secured({"ROLE_ADMIN"})
-    @DeleteMapping("/{id}")
+        @Secured({"ROLE_ADMIN"})
+        @DeleteMapping("/{id}")
     public Boolean deleteOrder(@PathVariable("id") Long id) {
         return ordersService.deleteOrder(id);
     }

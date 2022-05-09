@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("book-boutique/authors")
 public class AuthorsController {
-    
+
     private final AuthorsService authorsService;
     private final AuthorsViewMapper authorsViewMapper;
-    
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping
     public List<AuthorsView> getAuthors(
             @RequestParam(value = "fullName", required = false) String fullName
@@ -33,13 +33,13 @@ public class AuthorsController {
                 .map(authorsViewMapper::mapAuthorsToView)
                 .collect(Collectors.toList());
     }
-    
-    @Secured({"ROLE_USER, ROLE_ADMIN"})
+
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/{id}")
     public AuthorsView getAuthorById(@PathVariable("id") Long id) {
         return authorsViewMapper.mapAuthorsToView(authorsService.getAuthorById(id));
     }
-    
+
     @Secured({"ROLE_ADMIN"})
     @PostMapping
     public AuthorsView createAuthor(@RequestBody AuthorsView authorsView) {
@@ -52,7 +52,7 @@ public class AuthorsController {
         Authors createAuthor = authorsService.createAuthor(authors);
         return authorsViewMapper.mapAuthorsToView(createAuthor);
     }
-    
+
     @Secured({"ROLE_ADMIN"})
     @PutMapping("/{id}")
     public AuthorsView updateAuthor(@PathVariable("id") Long id,
@@ -70,7 +70,7 @@ public class AuthorsController {
         Authors updateAuthor = authorsService.updateAuthor(authors);
         return authorsViewMapper.mapAuthorsToView(updateAuthor);
     }
-    
+
     @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public Boolean deleteAuthor(@PathVariable("id") Long id) {

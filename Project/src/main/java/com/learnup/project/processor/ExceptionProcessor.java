@@ -1,5 +1,6 @@
 package com.learnup.project.processor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -12,25 +13,29 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Slf4j
 @ControllerAdvice
 public class ExceptionProcessor {
-    
+
     @ExceptionHandler(EntityExistsException.class)
     public ResponseEntity<Object> handleEntityExistException(EntityExistsException ex) {
+        log.error("", ex);
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
-    
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception ex) {
         List<String> stackTrace = Arrays.stream(ex.getStackTrace())
                 .map(Objects::toString)
                 .collect(Collectors.toList());
+        log.error("", ex);
         return new ResponseEntity<>(stackTrace, HttpStatus.BAD_REQUEST);
     }
-    
+
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Object> accessDenied(AccessDeniedException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.FORBIDDEN);
+    public ResponseEntity<Object> accessDenied(AccessDeniedException ex) {
+        log.error("", ex);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
-    
+
 }
