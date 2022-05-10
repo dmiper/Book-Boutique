@@ -27,7 +27,7 @@ public class ExceptionProcessor {
     public ResponseEntity<Object> handleException(Exception ex) {
         List<String> stackTrace = Arrays.stream(ex.getStackTrace())
                 .map(Objects::toString)
-                .collect(Collectors.toList());
+                .toList();
         log.error("", ex);
         return new ResponseEntity<>(stackTrace, HttpStatus.BAD_REQUEST);
     }
