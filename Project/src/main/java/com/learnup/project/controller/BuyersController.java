@@ -24,7 +24,7 @@ public class BuyersController {
     private final BuyersService buyersService;
     private final BuyersViewMapper buyersViewMapper;
 
-        @Secured({"ROLE_USER"})
+        @Secured({"ROLE_USER", "ROLE_ADMIN"})
         @GetMapping
     public List<BuyersView> getBuyers(
             @RequestParam(value = "dateOfBirth", required = false) LocalDate dateOfBirth,
@@ -38,13 +38,13 @@ public class BuyersController {
                 .collect(Collectors.toList());
     }
 
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/{id}")
     public BuyersView getBuyerById(@PathVariable("id") Long id) {
         return buyersViewMapper.mapBuyersToView(buyersService.getBuyersById(id));
     }
 
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @PostMapping
     public BuyersView createBuyer(@RequestBody BuyersView buyersView) {
         if (buyersView.getId() != null) {
@@ -57,7 +57,7 @@ public class BuyersController {
         return buyersViewMapper.mapBuyersToView(createBuyers);
     }
 
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @PutMapping("/{id}")
     public BuyersView updateBuyer(@PathVariable("id") Long id,
                                     @RequestBody BuyersView buyersView) {

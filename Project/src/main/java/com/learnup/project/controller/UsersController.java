@@ -27,7 +27,7 @@ public class UsersController {
     private final RoleService roleService;
     private final UsersViewMapper usersViewMapper;
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_ADMIN"})
     @GetMapping
     public List<UsersView> getUsers(
             @RequestParam(value = "role", required = false) Role role,
@@ -87,7 +87,7 @@ public class UsersController {
 
     @Secured({"ROLE_USER, ROLE_ADMIN"})
     @DeleteMapping("/{id}")
-    public Boolean deleteAuthor(@PathVariable("id") Long id) {
+    public Boolean deleteUser(@PathVariable("id") Long id) {
         return usersService.deleteUser(id);
     }
     
